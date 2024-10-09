@@ -1,0 +1,48 @@
+@startuml
+
+package "Sistema de Mérito Estudantil" {
+  [AplicacaoWebUI] ..> [ServicoAutenticacao] : autenticar
+  [AplicacaoWebUI] ..> [GerenciamentoAlunos] : gerenciar aluno
+  [AplicacaoWebUI] ..> [GerenciamentoProfessores] : gerenciar professor
+  [AplicacaoWebUI] ..> [GerenciamentoEmpresas] : gerenciar empresa
+  
+  [GerenciamentoAlunos] ..> [SistemaNotificacao] : notificar aluno
+  [GerenciamentoProfessores] ..> [SistemaNotificacao] : notificar envio
+  [GerenciamentoEmpresas] ..> [GerenciamentoVantagens] : cadastrar vantagem
+  
+  [ServicoAutenticacao] ..> [BancoDeDados] : consultar dados
+  [GerenciamentoAlunos] ..> [BancoDeDados] : consultar dados
+  [GerenciamentoProfessores] ..> [BancoDeDados] : consultar dados
+  [GerenciamentoEmpresas] ..> [BancoDeDados] : consultar dados
+  [GerenciamentoInstituicoes] ..> [BancoDeDados] : consultar dados
+  [GerenciamentoVantagens] ..> [BancoDeDados] : consultar dados
+}
+
+component AplicacaoWebUI {
+}
+
+component ServicoAutenticacao {
+}
+
+component GerenciamentoAlunos {
+}
+
+component GerenciamentoProfessores {
+}
+
+component GerenciamentoEmpresas {
+}
+
+component GerenciamentoInstituicoes {
+}
+
+component GerenciamentoVantagens {
+}
+
+component SistemaNotificacao {
+}
+
+component BancoDeDados {
+}
+
+@enduml
