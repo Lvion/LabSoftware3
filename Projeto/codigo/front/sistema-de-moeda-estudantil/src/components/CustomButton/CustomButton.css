@@ -1,0 +1,23 @@
+.custom-button {
+  background-color: transparent;
+  border: 2px solid #192f59;
+  color: #192f59;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 422px;
+}
+
+.custom-button:hover {
+  background-color: #192f59;
+  color: white;
+}
+
+.custom-button:disabled {
+  background-color: transparent;
+  border-color: #cccccc;
+  color: #cccccc;
+  cursor: not-allowed;
+}
