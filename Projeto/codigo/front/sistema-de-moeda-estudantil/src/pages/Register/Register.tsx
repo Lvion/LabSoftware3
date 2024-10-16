@@ -5,6 +5,10 @@ import './Register.css';
 
 const RegisterPage: React.FC = () => {
     const [name, setName] = useState('');
+    const [cpf, setCpf] = useState('');
+    const [rg, setRg] = useState('');
+    const [department, setDepartment] = useState('');
+    const [course, setCourse] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
@@ -47,6 +51,46 @@ const RegisterPage: React.FC = () => {
                         options={options}
                         required
                     />
+                    {(selectedOption === 'student' || selectedOption === 'professor') && (
+                        <CustomInput
+                            label="CPF"
+                            type="text"
+                            placeholder="Digite seu CPF"
+                            value={cpf}
+                            onChange={(e) => setCpf(e.target.value)}
+                            required
+                        />
+                    )}
+                    {selectedOption === 'student' && (
+                        <>
+                            <CustomInput
+                                label="RG"
+                                type="text"
+                                placeholder="Digite seu RG"
+                                value={rg}
+                                onChange={(e) => setRg(e.target.value)}
+                                required
+                            />
+                            <CustomInput
+                                label="Curso"
+                                type="text"
+                                placeholder="Digite seu curso"
+                                value={course}
+                                onChange={(e) => setCourse(e.target.value)}
+                                required
+                            />
+                        </>
+                    )}
+                    {(selectedOption === 'professor') && (
+                        <CustomInput
+                            label="Departamento"
+                            type="text"
+                            placeholder="Digite seu departamento"
+                            value={department}
+                            onChange={(e) => setDepartment(e.target.value)}
+                            required
+                        />
+                    )}
                     <CustomInput
                         label="Email"
                         type="email"
