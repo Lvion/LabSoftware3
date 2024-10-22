@@ -1,5 +1,6 @@
 package com.example.meritoestudantil.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,9 +10,13 @@ public class Vantagem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonProperty("nome")
     private String nome;
+
+    @JsonProperty("descricao")
     private String descricao;
-    private String foto;
+
+    @JsonProperty("custoEmMoedas")
     private int custoEmMoedas;
 
     @ManyToOne

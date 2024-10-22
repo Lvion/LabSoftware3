@@ -5,25 +5,20 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Instituicao {
+public class Departamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonProperty("nome")
+    @JsonProperty ("nome")
     private String nome;
-    @JsonProperty("endereco")
-    private String endereco;
 
-    @OneToMany(mappedBy = "instituicao")
-    private List<Aluno> alunos;
+    @ManyToOne
+    @JoinColumn(name = "instituicao_id")
+    private Instituicao instituicao;
 
-    @OneToMany(mappedBy = "instituicao")
+    @OneToMany(mappedBy = "departamento")
     private List<Professor> professores;
-
-    @OneToMany(mappedBy = "instituicao")
-    private List<Departamento> departamentos;
-
 
 }

@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
+import CustomSelect from '../../components/CustomSelect/CustomSelect'; 
 import './Register.css';
+interface Instituicao {
+    id: string;  
+    nome: string;
+}
 
 const RegisterPage: React.FC = () => {
     const [name, setName] = useState('');
@@ -12,19 +17,75 @@ const RegisterPage: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
+    const [selectedInstituicao, setSelectedInstituicao] = useState('');
+    const [instituicoes, setInstituicoes] = useState<Instituicao[]>([]);
 
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         setSelectedOption(e.target.value);
     };
 
-    const options = [
-        { value: 'student', label: 'Aluno' },
-        { value: 'professor', label: 'Professor' },
-        { value: 'enterprise', label: 'Empresa Parceira' },
-    ];
+    const fetchInstituicoes = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/api/instituicao/listar');
+            const data = await response.json();
+            setInstituicoes(data); 
+        } catch (error) {
+            console.error('Erro ao buscar instituições:', error);
+        }
+    };
 
-    const handleRegister = () => {
-        // TODO: Implementar a lógica de cadastro
+    useEffect(() => {
+        if (selectedOption === 'student') {
+            fetchInstituicoes();
+        }
+    }, [selectedOption]);
+
+    const handleRegister = async () => {
+        let url = '';
+        let payload = {};
+
+        if (selectedOption === 'student') {
+            url = 'http://localhost:8080/api/aluno/salvar';
+            payload = {
+                nome: name,
+                cpf: cpf,
+                rg: rg,
+                curso: course,
+                email: email,
+                senha: password,
+                instituicaoId: selectedInstituicao,  
+            };
+        } else if (selectedOption === 'enterprise') {
+            url = 'http://localhost:8080/api/empresa/salvar';
+            payload = {
+                nome: name,
+                email: email,
+                senha: password,
+            };
+        } else {
+            console.error('Opção selecionada inválida!');
+            return;
+        }
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Cadastro realizado com sucesso:', data);
+                
+            } else {
+                console.error('Erro ao registrar:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Erro ao fazer requisição:', error);
+        }
     };
 
     return (
@@ -48,7 +109,11 @@ const RegisterPage: React.FC = () => {
                         placeholder="Escolha uma opção"
                         value={selectedOption}
                         onChange={handleSelectChange}
-                        options={options}
+                        options={[
+                            { value: 'student', label: 'Aluno' },
+                            { value: 'professor', label: 'Professor' },
+                            { value: 'enterprise', label: 'Empresa Parceira' },
+                        ]}
                         required
                     />
                     {(selectedOption === 'student' || selectedOption === 'professor') && (
@@ -79,9 +144,19 @@ const RegisterPage: React.FC = () => {
                                 onChange={(e) => setCourse(e.target.value)}
                                 required
                             />
+                            <CustomSelect
+                                label="Instituição"
+                                value={selectedInstituicao}
+                                onChange={(e) => setSelectedInstituicao(e.target.value)}
+                                options={instituicoes.map((instituicao) => ({
+                                    value: instituicao.id,
+                                    label: instituicao.nome
+                                }))}
+                                required
+                            />
                         </>
                     )}
-                    {(selectedOption === 'professor') && (
+                    {selectedOption === 'professor' && (
                         <CustomInput
                             label="Departamento"
                             type="text"
