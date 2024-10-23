@@ -9,11 +9,15 @@ const LoginPage: React.FC = () => {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [userType, setUserType] = useState('student');
+    const [selectedOption, setSelectedOption] = useState('');
     const navigate = useNavigate();
+
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+        setSelectedOption(e.target.value);
+    };
 
     const handleLogin = async () => {
         try {
-            event.preventDefault();
             const response = await fetch('http://localhost:8080/api/login', {
                 method: 'POST',
                 headers: {
@@ -28,9 +32,9 @@ const LoginPage: React.FC = () => {
             });
 
             if (response.ok) {
-                localStorage.setItem('user', JSON.stringify({ email, name, userType }));  
+                localStorage.setItem('user', JSON.stringify({ email, name, userType }));
                 alert('Login feito com sucesso!');
-                navigate('/test'); 
+                navigate('/test');
             } else {
                 alert('Credenciais inválidas. Tente novamente.');
             }
@@ -62,16 +66,19 @@ const LoginPage: React.FC = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <label>Tipo de Usuário:</label>
-                    <select
-                        value={userType}
-                        onChange={(e) => setUserType(e.target.value)}
+                    <CustomInput
+                        label="Tipo de usuário"
+                        type="select"
+                        placeholder="Escolha uma opção"
+                        value={selectedOption}
+                        onChange={handleSelectChange}
+                        options={[
+                            { value: 'student', label: 'Aluno' },
+                            { value: 'professor', label: 'Professor' },
+                            { value: 'enterprise', label: 'Empresa Parceira' },
+                        ]}
                         required
-                        style={{ padding: '10px', marginBottom: '20px', fontSize: '16px' }}
-                    >
-                        <option value="student">Aluno</option>
-                        <option value="enterprise">Empresa</option>
-                    </select>
+                    />
 
                     <CustomButton label="Entrar" onClick={handleLogin} />
                 </form>
