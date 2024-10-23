@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
+import CustomSelect from '../../components/CustomSelect/CustomSelect';
 import './Login.css';
 
 const LoginPage: React.FC = () => {
@@ -28,9 +29,9 @@ const LoginPage: React.FC = () => {
             });
 
             if (response.ok) {
-                localStorage.setItem('user', JSON.stringify({ email, name, userType }));  
+                localStorage.setItem('user', JSON.stringify({ email, name, userType }));
                 alert('Login feito com sucesso!');
-                navigate('/test'); 
+                navigate('/test');
             } else {
                 alert('Credenciais inválidas. Tente novamente.');
             }
@@ -62,16 +63,19 @@ const LoginPage: React.FC = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <label>Tipo de Usuário:</label>
-                    <select
+                    <CustomInput
+                        label="Tipo de Usuário"
+                        type="select"
+                        placeholder="Escolha uma opção"
                         value={userType}
                         onChange={(e) => setUserType(e.target.value)}
+                        options={[
+                            { value: 'student', label: 'Aluno' },
+                            { value: 'professor', label: 'Professor' },
+                            { value: 'enterprise', label: 'Empresa Parceira' },
+                        ]}
                         required
-                        style={{ padding: '10px', marginBottom: '20px', fontSize: '16px' }}
-                    >
-                        <option value="student">Aluno</option>
-                        <option value="enterprise">Empresa</option>
-                    </select>
+                    />
 
                     <CustomButton label="Entrar" onClick={handleLogin} />
                 </form>

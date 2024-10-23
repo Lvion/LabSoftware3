@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import CustomSelect from '../../components/CustomSelect/CustomSelect';
@@ -20,6 +21,8 @@ const RegisterPage: React.FC = () => {
     const [selectedOption, setSelectedOption] = useState('');
     const [selectedInstituicao, setSelectedInstituicao] = useState('');
     const [instituicoes, setInstituicoes] = useState<Instituicao[]>([]);
+
+    const navigate = useNavigate();
 
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         setSelectedOption(e.target.value);
@@ -81,6 +84,8 @@ const RegisterPage: React.FC = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Cadastro realizado com sucesso:', data);
+                alert('Cadastro realizado com sucesso!');
+                navigate('/login');
 
             } else {
                 console.error('Erro ao registrar:', response.statusText);
@@ -113,7 +118,6 @@ const RegisterPage: React.FC = () => {
                         onChange={handleSelectChange}
                         options={[
                             { value: 'student', label: 'Aluno' },
-                            { value: 'professor', label: 'Professor' },
                             { value: 'enterprise', label: 'Empresa Parceira' },
                         ]}
                         required

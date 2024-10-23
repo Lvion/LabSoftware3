@@ -89,7 +89,7 @@ const ProfileEditPage: React.FC = () => {
                     <CustomInput
                         label="Nome"
                         type="text"
-                        placeholder="Digite seu nome"
+                        placeholder="Alterar nome"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
@@ -102,7 +102,6 @@ const ProfileEditPage: React.FC = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         required
                         readOnly
-                        style={{ backgroundColor: "#f0f0f0", color: "#a9a9a9", cursor: "not-allowed" }}
                     />
                     <CustomInput
                         label="Senha"
@@ -113,9 +112,8 @@ const ProfileEditPage: React.FC = () => {
                     />
                     <CustomButton label="Salvar" onClick={handleSave} />
                     <CustomButton label="Sair" onClick={handleLogout} />
-
+                    <CustomButton label="Excluir Conta" onClick={handleDeleteAccount} /> 
                 </form>
-                <CustomButton label="Excluir Conta" onClick={handleDeleteAccount} /> 
             </div>
         </div>
     );
