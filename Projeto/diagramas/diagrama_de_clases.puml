@@ -1,13 +1,15 @@
 @startuml
 
 class Aluno {
+  +id: Long
   +nome: String
   +email: String
   +cpf: String
   +rg: String
   +endereco: String
-  +instituicao: Instituicao
   +curso: String
+  +instituicao: Instituicao
+  +senha: String
   +saldoMoedas(): int
   +consultarExtrato(): List<Transacao>
   +trocarMoedas(vantagem: Vantagem)
@@ -15,37 +17,56 @@ class Aluno {
 }
 
 class Professor {
+  +id: Long
   +nome: String
   +cpf: String
-  +departamento: String
+  +departamento: Departamento
+  +instituicao: Instituicao
   +saldoMoedas(): int
   +consultarExtrato(): List<Transacao>
   +enviarMoedas(aluno: Aluno, quantidade: int, motivo: String)
 }
 
 class Instituicao {
+  +id: Long
   +nome: String
   +endereco: String
   +listarCursos(): List<String>
+  +departamentos: List<Departamento>
+}
+
+class Departamento {
+  +id: Long
+  +nome: String
+  +instituicao: Instituicao
+  +professores: List<Professor>
 }
 
 class Empresa {
+  +id: Long
   +nome: String
-  +descricao: String
+  +email: String
+  +senha: String
+  +vantagens: List<Vantagem>
   +cadastrarVantagem(vantagem: Vantagem)
 }
 
 class Vantagem {
+  +id: Long
   +nome: String
   +descricao: String
   +foto: String
   +custoEmMoedas: int
+  +empresa: Empresa
 }
 
 class Transacao {
+  +id: Long
   +data: Date
   +quantidadeMoedas: int
   +descricao: String
+  +aluno: Aluno
+  +professor: Professor
 }
 
 class Sistema {
@@ -54,9 +75,11 @@ class Sistema {
 }
 
 Aluno --> Instituicao
-Professor --> Instituicao
-Professor "1" --> "0..*" Transacao : realiza
-Aluno "1" --> "0..*" Transacao : recebe
-Empresa "1" --> "0..*" Vantagem : oferece
+Professor --> Departamento
+Departamento --> Instituicao
+Professor "1" --> "0..*" Transacao
+Aluno "1" --> "0..*" Transacao
+Empresa "1" --> "0..*" Vantagem
+Vantagem --> Empresa
 
 @enduml

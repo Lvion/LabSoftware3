@@ -3,8 +3,6 @@ package com.example.meritoestudantil.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.util.List;
-import com.example.meritoestudantil.models.Transacao;
-import com.example.meritoestudantil.models.Instituicao;
 
 @Entity
 public class Aluno {
