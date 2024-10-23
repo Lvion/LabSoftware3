@@ -5,31 +5,32 @@ left to right direction
 actor "Aluno" as Aluno
 actor "Professor" as Professor
 actor "Empresa Parceira" as Empresa
+actor "Relógio" as Relogio
 
-usecase "Cadastrar Aluno" as UC1
-usecase "Selecionar Instituição" as UC2
+usecase "Cadastrar" as UC1
 usecase "Enviar Moedas" as UC3
 usecase "Consultar Saldo e Extrato (Aluno)" as UC4
 usecase "Consultar Saldo e Extrato (Professor)" as UC5
-usecase "Receber Notificação por Moeda" as UC6
 usecase "Cadastrar Vantagem" as UC7
 usecase "Trocar Moedas por Vantagem" as UC8
 usecase "Enviar Cupom para Aluno" as UC9
-usecase "Enviar Notificação ao Parceiro" as UC10
+usecase "Notificar Aluno" as UC11
+usecase "Notificar Empresa Parceira" as UC10
 
 Aluno -- UC1
-Aluno -- UC2
-Professor -- UC3
-Professor -- UC5
 Aluno -- UC4
-Aluno -- UC6
-Empresa -- UC7
 Aluno -- UC8
 Aluno -- UC9
+
+Professor -- UC3
+Professor -- UC5
+Professor -- UC11
+
+Relogio -- UC3
+
+Empresa -- UC7
 Empresa -- UC10
 
-UC3 .> UC5 : includes
-UC8 .> UC4 : includes
-UC9 .> UC8 : includes
+UC3 .> UC11 : includes
 
 @enduml
