@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import CustomSelect from '../../components/CustomSelect/CustomSelect';
+import Api from '../../utils/Api';
+
 import './Register.css';
 interface Instituicao {
     id: string;
@@ -9,6 +12,8 @@ interface Instituicao {
 }
 
 const RegisterPage: React.FC = () => {
+    const navigate = useNavigate();
+
     const [name, setName] = useState('');
     const [cpf, setCpf] = useState('');
     const [rg, setRg] = useState('');
@@ -20,19 +25,15 @@ const RegisterPage: React.FC = () => {
     const [selectedOption, setSelectedOption] = useState('');
     const [selectedInstituicao, setSelectedInstituicao] = useState('');
     const [instituicoes, setInstituicoes] = useState<Instituicao[]>([]);
+    const [error, setError] = useState('');
 
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         setSelectedOption(e.target.value);
     };
 
     const fetchInstituicoes = async () => {
-        try {
-            const response = await fetch('http://localhost:8080/api/instituicao/listar');
-            const data = await response.json();
-            setInstituicoes(data);
-        } catch (error) {
-            console.error('Erro ao buscar instituições:', error);
-        }
+        const data = await Api.getInstitutions();
+        setInstituicoes(data);
     };
 
     useEffect(() => {
@@ -41,12 +42,12 @@ const RegisterPage: React.FC = () => {
         }
     }, [selectedOption]);
 
-    const handleRegister = async () => {
-        let url = '';
+    const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setError('');
         let payload = {};
 
         if (selectedOption === 'student') {
-            url = 'http://localhost:8080/api/aluno/salvar';
             payload = {
                 nome: name,
                 cpf: cpf,
@@ -58,7 +59,6 @@ const RegisterPage: React.FC = () => {
                 endereco: endereco,
             };
         } else if (selectedOption === 'enterprise') {
-            url = 'http://localhost:8080/api/empresa/salvar';
             payload = {
                 nome: name,
                 email: email,
@@ -70,23 +70,19 @@ const RegisterPage: React.FC = () => {
         }
 
         try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(payload),
-            });
+            const response = await Api.register(selectedOption, payload);
 
-            if (response.ok) {
-                const data = await response.json();
-                console.log('Cadastro realizado com sucesso:', data);
+            if (response.status === "OK") {
+                console.log('Cadastro realizado com sucesso:');
+                navigate('/login');
 
             } else {
                 console.error('Erro ao registrar:', response.statusText);
+                setError('Erro ao registrar. Verifique os dados e tente novamente.');
             }
         } catch (error) {
             console.error('Erro ao fazer requisição:', error);
+            setError('Erro ao registrar. Verifique os dados e tente novamente.');
         }
     };
 
@@ -96,7 +92,12 @@ const RegisterPage: React.FC = () => {
                 <div className="register-header">
                     <h2>Criar uma conta</h2>
                 </div>
-                <form>
+                {error && (
+                    <div className="register-error">
+                        {error}
+                    </div>
+                )}
+                <form onSubmit={handleRegister}>
                     <CustomInput
                         label="Nome"
                         type="text"
@@ -192,7 +193,7 @@ const RegisterPage: React.FC = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <CustomButton label="Criar conta" onClick={handleRegister} />
+                    <CustomButton label="Criar conta" onClick={() => handleRegister} />
                 </form>
             </div>
         </div>

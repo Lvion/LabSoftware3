@@ -1,6 +1,6 @@
 class Api {
     static async login(email: string, senha: string) {
-        const response = await fetch('http://localhost:3001/login', {
+        const response = await fetch('http://localhost:8080/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -11,8 +11,8 @@ class Api {
         return response.json();
     }
 
-    static async register(data: { nome: string; email: string; senha: string; func: string }) {
-        const response = await fetch('http://localhost:3001/register', {
+    static async register(type: string, data: object) {
+        const response = await fetch(`http://localhost:8080/api/${type}/salvar`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -20,6 +20,16 @@ class Api {
             body: JSON.stringify(data),
         });
 
+        return response.json();
+    }
+
+    static async getInstitutions() {
+        const response = await fetch('http://localhost:8080/api/instituicao/listar', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
         return response.json();
     }
 }
