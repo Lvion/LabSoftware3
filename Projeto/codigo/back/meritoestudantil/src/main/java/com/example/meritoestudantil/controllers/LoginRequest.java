@@ -1,8 +1,18 @@
 package com.example.meritoestudantil.controllers;
 
 public class LoginRequest {
+    private String name;
     private String email;
     private String password;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     private String userType;
 
     public String getEmail() {

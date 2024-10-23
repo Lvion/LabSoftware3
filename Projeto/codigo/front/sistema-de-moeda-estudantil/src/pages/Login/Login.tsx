@@ -7,25 +7,28 @@ import './Login.css';
 const LoginPage: React.FC = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
     const [userType, setUserType] = useState('student');
     const navigate = useNavigate();
 
     const handleLogin = async () => {
         try {
+            event.preventDefault();
             const response = await fetch('http://localhost:8080/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email: name,
+                    email: email,
+                    name: name,
                     password: password,
                     userType: userType,
                 }),
             });
 
             if (response.ok) {
-                localStorage.setItem('user', JSON.stringify({ name, userType }));  
+                localStorage.setItem('user', JSON.stringify({ email, name, userType }));  
                 alert('Login feito com sucesso!');
                 navigate('/test'); 
             } else {
@@ -47,8 +50,8 @@ const LoginPage: React.FC = () => {
                         label="Email"
                         type="email"
                         placeholder="Digite seu email"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                     <CustomInput

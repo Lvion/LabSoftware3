@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
-import CustomSelect from '../../components/CustomSelect/CustomSelect'; 
+import CustomSelect from '../../components/CustomSelect/CustomSelect';
 import './Register.css';
 interface Instituicao {
-    id: string;  
+    id: string;
     nome: string;
 }
 
@@ -12,6 +12,7 @@ const RegisterPage: React.FC = () => {
     const [name, setName] = useState('');
     const [cpf, setCpf] = useState('');
     const [rg, setRg] = useState('');
+    const [endereco, setEndereco] = useState('');
     const [department, setDepartment] = useState('');
     const [course, setCourse] = useState('');
     const [email, setEmail] = useState('');
@@ -28,7 +29,7 @@ const RegisterPage: React.FC = () => {
         try {
             const response = await fetch('http://localhost:8080/api/instituicao/listar');
             const data = await response.json();
-            setInstituicoes(data); 
+            setInstituicoes(data);
         } catch (error) {
             console.error('Erro ao buscar instituições:', error);
         }
@@ -53,7 +54,8 @@ const RegisterPage: React.FC = () => {
                 curso: course,
                 email: email,
                 senha: password,
-                instituicaoId: selectedInstituicao,  
+                instituicaoId: selectedInstituicao,
+                endereco: endereco,
             };
         } else if (selectedOption === 'enterprise') {
             url = 'http://localhost:8080/api/empresa/salvar';
@@ -79,7 +81,7 @@ const RegisterPage: React.FC = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Cadastro realizado com sucesso:', data);
-                
+
             } else {
                 console.error('Erro ao registrar:', response.statusText);
             }
@@ -142,6 +144,14 @@ const RegisterPage: React.FC = () => {
                                 placeholder="Digite seu curso"
                                 value={course}
                                 onChange={(e) => setCourse(e.target.value)}
+                                required
+                            />
+                            <CustomInput
+                                label="Endereço"
+                                type="text"
+                                placeholder="Digite seu endereço"
+                                value={endereco}
+                                onChange={(e) => setEndereco(e.target.value)}
                                 required
                             />
                             <CustomSelect

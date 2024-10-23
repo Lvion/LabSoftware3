@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import './TestPage.css';
 
 
-// Interface para definir o tipo dos itens (por exemplo, Instituicao)
 interface Item {
     id: number;
     nome: string;
 }
 
 const TestPage: React.FC = () => {
-    // Simulando uma lista de itens (pode ser instituições, produtos, etc.)
     const initialItems: Item[] = [
         { id: 1, nome: 'Item 1' },
         { id: 2, nome: 'Item 2' },
@@ -18,18 +16,16 @@ const TestPage: React.FC = () => {
         { id: 5, nome: 'Item 5' }
     ];
 
-    const [selectedItem, setSelectedItem] = useState<string>('');  // Estado para armazenar o item selecionado
+    const [selectedItem, setSelectedItem] = useState<string>('');  
 
-    // Função que será chamada quando um item for selecionado
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedItem(e.target.value);
     };
 
     return (
         <div style={{ padding: '20px' }}>
-            <h1>Página de Teste</h1>
+            <h1>Página de Teste/Login bem sucedido</h1>
 
-            {/* Dropdown de seleção de itens */}
             <div style={{ marginBottom: '20px' }}>
                 <label htmlFor="item-select" style={{ marginRight: '10px' }}>Selecione um Item:</label>
                 <select
@@ -47,13 +43,11 @@ const TestPage: React.FC = () => {
                 </select>
             </div>
 
-            {/* Exibição do item selecionado */}
             <div>
                 <h3>Item Selecionado:</h3>
                 <p>{selectedItem ? `Você selecionou o item com ID: ${selectedItem}` : 'Nenhum item selecionado'}</p>
             </div>
 
-            {/* Botão de teste */}
             <button
                 onClick={() => alert(`Item selecionado: ${selectedItem}`)}
                 style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}

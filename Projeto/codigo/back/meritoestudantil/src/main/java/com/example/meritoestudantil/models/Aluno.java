@@ -89,4 +89,44 @@ public class Aluno {
     public void setTransacoes(List<Transacao> transacoes) {
         this.transacoes = transacoes;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public String getRg() {
+        return rg;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public String getCurso() {
+        return curso;
+    }
+
+    public Integer getSaldoMoedas() {
+        return saldoMoedas;
+    }
+
+    public Instituicao getInstituicao() {
+        return instituicao;
+    }
+
+    public List<Transacao> getTransacoes() {
+        return transacoes;
+    }
 }
