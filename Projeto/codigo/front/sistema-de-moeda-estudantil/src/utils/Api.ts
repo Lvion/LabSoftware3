@@ -32,6 +32,28 @@ class Api {
         });
         return response.json();
     }
+
+    static async getStudent() {
+        const response = await fetch('http://localhost:8080/api/estudante/obter', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        return response.json();
+    }
+
+    static async getEnterprise() {
+        const response = await fetch('http://localhost:8080/api/empresa/obter', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        return response.json();
+    }
 }
 
 export default Api;

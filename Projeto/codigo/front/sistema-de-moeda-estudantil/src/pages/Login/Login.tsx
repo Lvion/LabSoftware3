@@ -16,7 +16,8 @@ const LoginPage: React.FC = () => {
         setSelectedOption(e.target.value);
     };
 
-    const handleLogin = async () => {
+    const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         try {
             const response = await fetch('http://localhost:8080/api/login', {
                 method: 'POST',
@@ -31,10 +32,14 @@ const LoginPage: React.FC = () => {
                 }),
             });
 
+            console.log(response);
             if (response.ok) {
                 localStorage.setItem('user', JSON.stringify({ email, name, userType }));
+                console.log(userType);
                 alert('Login feito com sucesso!');
-                navigate('/test');
+                if (userType === 'student') {
+                    navigate('/student');
+                }
             } else {
                 alert('Credenciais inválidas. Tente novamente.');
             }
@@ -49,7 +54,7 @@ const LoginPage: React.FC = () => {
                 <div className="login-header">
                     <h2>Login</h2>
                 </div>
-                <form>
+                <form onSubmit={handleLogin}>
                     <CustomInput
                         label="Email"
                         type="email"
@@ -84,7 +89,7 @@ const LoginPage: React.FC = () => {
                         <p>Não possui uma conta? <a href='/register'>Cadastre-se</a></p>
                     </div>
 
-                    <CustomButton label="Entrar" onClick={handleLogin} />
+                    <CustomButton label="Entrar" />
                 </form>
             </div>
         </div>

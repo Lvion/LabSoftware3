@@ -3,7 +3,7 @@ import './CustomButton.css';
 
 interface CustomButtonProps {
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
   disabled?: boolean;
 }
 
