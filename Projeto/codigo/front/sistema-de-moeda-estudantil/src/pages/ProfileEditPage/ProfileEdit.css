@@ -2,29 +2,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    padding: 20px;
+    margin-top: 40px;
 }
 
 .profile-edit-card {
-    background-color: #f8f9fa;
+    background-color: white;
     padding: 40px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    box-sizing: border-box;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    width: 400px;
+    text-align: center;
 }
 
 .profile-edit-header h2 {
-    margin-bottom: 20px;
-    color: #333;
-    text-align: center;
+    color: #192f59;
     font-size: 24px;
     font-weight: bold;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 20px;
 }
