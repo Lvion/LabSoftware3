@@ -47,8 +47,8 @@
 }
 
 .sidebar a:hover {
-    background-color: #ffd3a9;
-    color: #5a5a5a;
+    background-color: #679bfca4;
+    color: white;
 }
 
 .sidebar li.active a {
@@ -57,7 +57,7 @@
 }
 
 .sidebar li.active a:hover {
-    background-color: #2c539b;
+    background-color: #192f59;
 }
 
 .hamburger-btn {

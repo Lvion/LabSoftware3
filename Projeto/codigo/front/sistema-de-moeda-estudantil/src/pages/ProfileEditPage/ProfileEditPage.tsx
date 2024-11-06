@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
-import './ProfileEdit.css';  
+import NavBar from '../NavBar/NavBar';
+import './ProfileEdit.css';
 
 const ProfileEditPage: React.FC = () => {
     const navigate = useNavigate();
@@ -80,7 +81,7 @@ const ProfileEditPage: React.FC = () => {
 
     return (
         <div className="profile-edit-container">
-
+            <NavBar />
             <div className="profile-edit-card">
                 <div className="profile-edit-header">
                     <h2>Editar Perfil</h2>
@@ -115,7 +116,7 @@ const ProfileEditPage: React.FC = () => {
                     <CustomButton label="Sair" onClick={handleLogout} />
 
                 </form>
-                <CustomButton label="Excluir Conta" onClick={handleDeleteAccount} /> 
+                <CustomButton label="Excluir Conta" onClick={handleDeleteAccount} />
             </div>
         </div>
     );

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { TbCoin } from "react-icons/tb";
 import Api from '../../utils/Api';
 import Loading from '../../components/Loading/Loading';
 import NavBar from '../NavBar/NavBar';
+import './StudentPage.css';
+
 
 interface Student {
     name: string;
@@ -21,7 +24,7 @@ const StudentPage = () => {
 
     useEffect(() => {
         const fetchStudent = async () => {
-            setStudent(student);
+            setStudent(mock);
             setLoading(false);
         };
 
@@ -34,12 +37,17 @@ const StudentPage = () => {
 
     return (
         <div>
-            <div className='side-bar'>
-                <NavBar />
+            <NavBar />
+            <div className='main-content'>
+                <div className='page-head-container'>
+                    <div className='page-head-title'>
+                        <h1>Olá, {student?.name}!</h1>
+                    </div>
+                    <div className='ballance-text'>
+                        <TbCoin size={30} /> {student?.balance}
+                    </div>
+                </div>
             </div>
-            <h1>Olá, {student?.name}!</h1>
-            <h2>Seu saldo é de {student?.balance} moedas.</h2>
-            <h3>Seu código de estudante é {student?.code}.</h3>
         </div>
     );
 }

@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaHome, FaGift } from 'react-icons/fa';
 import { FaGear } from "react-icons/fa6";
-import { MdRestaurantMenu } from 'react-icons/md';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { RiFileList3Fill } from "react-icons/ri";
+
 import './NavBar.css';
 
 function NavBar() {
@@ -48,6 +49,11 @@ function NavBar() {
                     <li className={location.pathname === '/menu' ? 'active' : ''}>
                         <Link to="/benefits" onClick={closeSidebarOnClick}>
                             <FaGift /> Benefícios
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/extract" onClick={closeSidebarOnClick}>
+                            <RiFileList3Fill />Extrato
                         </Link>
                     </li>
                     <li>

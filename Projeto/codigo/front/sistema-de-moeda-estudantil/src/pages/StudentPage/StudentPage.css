@@ -1,0 +1,30 @@
+.main-content {
+    margin-left: 280px;
+    transition: margin-left 0.3s ease;
+}
+
+.ballance-text {
+    display: flex;
+    align-items: center;
+    background-color: rgba(11, 11, 255, 0.445);
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+}
+
+.ballance-text:hover {
+    background-color: rgba(11, 11, 255, 0.7);
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+.page-head-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}

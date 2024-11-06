@@ -3,12 +3,11 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f0f2f5;
     padding: 20px;
 }
 
 .profile-edit-card {
-    background-color: white;
+    background-color: #f8f9fa;
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
