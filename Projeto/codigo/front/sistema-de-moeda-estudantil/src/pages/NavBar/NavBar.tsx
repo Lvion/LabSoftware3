@@ -41,24 +41,24 @@ function NavBar() {
             <nav className={`sidebar ${isOpen || !isMobile ? 'open' : ''}`}>
                 <h2>Menu</h2>
                 <ul>
-                    <li className={location.pathname === '/' ? 'active' : ''}>
+                    <li className={location.pathname === '/student' ? 'active' : ''}>
                         <Link to="/student" onClick={closeSidebarOnClick}>
                             <FaHome /> Página Inicial
                         </Link>
                     </li>
-                    <li className={location.pathname === '/menu' ? 'active' : ''}>
+                    <li className={location.pathname === '/benefits' ? 'active' : ''}>
                         <Link to="/benefits" onClick={closeSidebarOnClick}>
                             <FaGift /> Benefícios
                         </Link>
                     </li>
-                    <li>
+                    <li className={location.pathname === '/extract' ? 'active' : ''}>
                         <Link to="/extract" onClick={closeSidebarOnClick}>
-                            <RiFileList3Fill />Extrato
+                            <RiFileList3Fill /> Extrato
                         </Link>
                     </li>
-                    <li>
+                    <li className={location.pathname === '/settings' ? 'active' : ''}>
                         <Link to="/settings" onClick={closeSidebarOnClick}>
-                            <FaGear />Configurações
+                            <FaGear /> Configurações
                         </Link>
                     </li>
                 </ul>
