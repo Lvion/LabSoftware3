@@ -38,3 +38,11 @@ form {
 input[type="checkbox"] {
   margin-right: 10px;
 }
+
+.register-text-container {
+  display: flex;
+}
+
+.register-text-container p a {
+  text-decoration: none;
+}

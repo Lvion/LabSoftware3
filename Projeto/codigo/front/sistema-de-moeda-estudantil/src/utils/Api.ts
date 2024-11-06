@@ -20,7 +20,7 @@ class Api {
             body: JSON.stringify(data),
         });
 
-        return response.json();
+        return response;
     }
 
     static async getInstitutions() {

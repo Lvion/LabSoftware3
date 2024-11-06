@@ -80,6 +80,10 @@ const LoginPage: React.FC = () => {
                         required
                     />
 
+                    <div className='register-text-container'>
+                        <p>Não possui uma conta? <a href='/register'>Cadastre-se</a></p>
+                    </div>
+
                     <CustomButton label="Entrar" onClick={handleLogin} />
                 </form>
             </div>

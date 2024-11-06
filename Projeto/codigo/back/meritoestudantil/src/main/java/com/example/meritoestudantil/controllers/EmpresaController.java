@@ -16,9 +16,15 @@ public class EmpresaController {
     private EmpresaService empresaService;
 
     @PostMapping("/salvar")
-    public Empresa salvarEmpresa(@RequestBody Empresa empresaParceira) {
-        return empresaService.salvarEmpresa(empresaParceira);
+    public ResponseEntity<?> salvarEmpresa(@RequestBody Empresa empresaParceira) throws Exception {
+        try {
+            empresaService.salvarEmpresa(empresaParceira);
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(null);
+        }
+        return ResponseEntity.status(200).body(null);
     }
+
     @PostMapping("/update")
     public ResponseEntity<?> updateEmpresa(@RequestBody Empresa empresa) {
 
@@ -29,6 +35,7 @@ public class EmpresaController {
             return ResponseEntity.status(400).body("Erro ao atualizar dados da empresa. Email não encontrado.");
         }
     }
+
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteEmpresa(@RequestBody Map<String, String> payload) {
         String email = payload.get("email");

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import CustomSelect from '../../components/CustomSelect/CustomSelect';
+import { IoMdArrowBack } from "react-icons/io";
+
 import Api from '../../utils/Api';
 
 import './Register.css';
@@ -71,17 +73,13 @@ const RegisterPage: React.FC = () => {
 
         try {
             const response = await Api.register(selectedOption, payload);
-
-            if (response.status === "OK") {
-                console.log('Cadastro realizado com sucesso:');
+            if (response.status === 200) {
                 navigate('/login');
 
             } else {
-                console.error('Erro ao registrar:', response.statusText);
                 setError('Erro ao registrar. Verifique os dados e tente novamente.');
             }
         } catch (error) {
-            console.error('Erro ao fazer requisição:', error);
             setError('Erro ao registrar. Verifique os dados e tente novamente.');
         }
     };
@@ -114,7 +112,6 @@ const RegisterPage: React.FC = () => {
                         onChange={handleSelectChange}
                         options={[
                             { value: 'student', label: 'Aluno' },
-                            { value: 'professor', label: 'Professor' },
                             { value: 'enterprise', label: 'Empresa Parceira' },
                         ]}
                         required

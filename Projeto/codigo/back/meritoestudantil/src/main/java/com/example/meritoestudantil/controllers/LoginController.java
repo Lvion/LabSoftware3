@@ -24,14 +24,14 @@ public class LoginController {
 
         if ("student".equals(userType)) {
             Aluno aluno = alunoService.validarLogin(loginRequest.getEmail(), loginRequest.getPassword());
-            System.out.println(aluno+"estive aqui rodando aluno 1");
+            System.out.println(aluno + "estive aqui rodando aluno 1");
             if (aluno != null) {
                 return ResponseEntity.ok().body("{ \"message\": \"Login realizado com sucesso\" }");
             }
         } else if ("enterprise".equals(userType)) {
 
             Empresa empresa = empresaService.validarLogin(loginRequest.getEmail(), loginRequest.getPassword());
-            System.out.println(empresa+"estive aqui rodando empresa 1");
+            System.out.println(empresa + "estive aqui rodando empresa 1");
 
             if (empresa != null) {
                 return ResponseEntity.ok().body("{ \"message\": \"Login realizado com sucesso\" }");
