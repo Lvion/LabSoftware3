@@ -48,7 +48,8 @@
     font-size: 13px;
     font-weight: 600;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    text-align: initial;
 }
 
 .nav-bottom-links ul {
@@ -59,6 +60,10 @@
 
 .nav-bottom-links li {
     margin-bottom: 30px;
+}
+
+.nav-bottom-links li.settings-link {
+    margin-bottom: 20px;
 }
 
 .sidebar a {

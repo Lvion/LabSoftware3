@@ -69,7 +69,7 @@ function NavBar() {
                 <div className="nav-bottom-links">
                     <p>OUTROS</p>
                     <ul>
-                        <li className={`${location.pathname === '/settings' ? 'active' : ''} bottom-link`}>
+                        <li className={`${location.pathname === '/settings' ? 'active' : ''} bottom-link settings-link`}>
                             <Link to="/settings" onClick={closeSidebarOnClick}>
                                 <FaGear /> Configurações
                             </Link>
