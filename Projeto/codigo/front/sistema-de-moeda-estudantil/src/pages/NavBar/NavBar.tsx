@@ -1,13 +1,16 @@
+// NavBar.jsx
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaHome, FaGift } from 'react-icons/fa';
 import { FaGear } from "react-icons/fa6";
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { RiFileList3Fill } from "react-icons/ri";
+import { IoLogOut } from "react-icons/io5";
 
 import './NavBar.css';
 
 function NavBar() {
+    const navigate = useNavigate();
     const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -22,6 +25,11 @@ function NavBar() {
 
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        navigate('/login');
     };
 
     const closeSidebarOnClick = () => {
@@ -40,7 +48,7 @@ function NavBar() {
 
             <nav className={`sidebar ${isOpen || !isMobile ? 'open' : ''}`}>
                 <h2>Menu</h2>
-                <ul>
+                <ul className='nav-links'>
                     <li className={location.pathname === '/student' ? 'active' : ''}>
                         <Link to="/student" onClick={closeSidebarOnClick}>
                             <FaHome /> Página Inicial
@@ -56,12 +64,23 @@ function NavBar() {
                             <RiFileList3Fill /> Extrato
                         </Link>
                     </li>
-                    <li className={location.pathname === '/settings' ? 'active' : ''}>
-                        <Link to="/settings" onClick={closeSidebarOnClick}>
-                            <FaGear /> Configurações
-                        </Link>
-                    </li>
                 </ul>
+
+                <div className="nav-bottom-links">
+                    <p>OUTROS</p>
+                    <ul>
+                        <li className={`${location.pathname === '/settings' ? 'active' : ''} bottom-link`}>
+                            <Link to="/settings" onClick={closeSidebarOnClick}>
+                                <FaGear /> Configurações
+                            </Link>
+                        </li>
+                        <li className="logout bottom-link">
+                            <Link to="/login" onClick={handleLogout}>
+                                <IoLogOut /> Sair
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
             </nav>
         </>
     );

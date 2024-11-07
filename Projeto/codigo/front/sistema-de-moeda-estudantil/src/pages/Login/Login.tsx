@@ -10,6 +10,7 @@ const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');
     const [userType, setUserType] = useState('student');
     const [selectedOption, setSelectedOption] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
@@ -18,6 +19,7 @@ const LoginPage: React.FC = () => {
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setError('');
         try {
             const response = await fetch('http://localhost:8080/api/login', {
                 method: 'POST',
@@ -32,19 +34,18 @@ const LoginPage: React.FC = () => {
                 }),
             });
 
-            console.log(response);
             if (response.ok) {
                 localStorage.setItem('user', JSON.stringify({ email, name, userType }));
                 console.log(userType);
-                alert('Login feito com sucesso!');
                 if (userType === 'student') {
                     navigate('/student');
                 }
-            } else {
-                alert('Credenciais inválidas. Tente novamente.');
+            } else if (response.status === 401) {
+                setError("Usuário ou senha inválidos");
             }
         } catch (error) {
-            console.error('Erro ao fazer login:', error);
+            console.error('Erro ao fazer login', error);
+            setError('Erro ao fazer login');
         }
     };
 
@@ -54,6 +55,11 @@ const LoginPage: React.FC = () => {
                 <div className="login-header">
                     <h2>Login</h2>
                 </div>
+                {error && (
+                    <div className="login-error">
+                        {error}
+                    </div>
+                )}
                 <form onSubmit={handleLogin}>
                     <CustomInput
                         label="Email"

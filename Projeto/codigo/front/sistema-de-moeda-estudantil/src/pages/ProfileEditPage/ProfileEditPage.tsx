@@ -47,11 +47,6 @@ const ProfileEditPage: React.FC = () => {
         }
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('user');
-        navigate('/login');
-    };
-
     const handleDeleteAccount = async () => {
         if (window.confirm('Tem certeza de que deseja excluir sua conta? Essa ação não pode ser desfeita.')) {
             try {
@@ -112,7 +107,6 @@ const ProfileEditPage: React.FC = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <CustomButton label="Salvar" onClick={handleSave} />
-                    <CustomButton label="Sair" onClick={handleLogout} />
                     <CustomButton label="Excluir Conta" onClick={handleDeleteAccount} />
                 </form>
             </div>

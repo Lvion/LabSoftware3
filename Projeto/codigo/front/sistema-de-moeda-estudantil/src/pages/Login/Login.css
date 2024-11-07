@@ -46,3 +46,11 @@ input[type="checkbox"] {
 .register-text-container p a {
   text-decoration: none;
 }
+
+.login-error {
+  background-color: #f0010188;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
