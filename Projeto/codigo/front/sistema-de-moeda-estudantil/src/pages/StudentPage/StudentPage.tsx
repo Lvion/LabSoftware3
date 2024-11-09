@@ -1,37 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { TbCoin } from "react-icons/tb";
-import Api from '../../utils/Api';
+import { UserContext } from '../../contexts/UserContext';
 import Loading from '../../components/Loading/Loading';
 import NavBar from '../NavBar/NavBar';
 import './StudentPage.css';
 
-
-interface Student {
-    name: string;
-    balance: number;
-    code: string;
-}
-
-const mock = {
-    name: 'João',
-    balance: 100,
-    code: '123456',
-};
-
 const StudentPage = () => {
-    const [student, setStudent] = useState<Student>();
-    const [loading, setLoading] = useState(true);
+    const { user } = useContext(UserContext);
 
-    useEffect(() => {
-        const fetchStudent = async () => {
-            setStudent(mock);
-            setLoading(false);
-        };
-
-        fetchStudent();
-    }, []);
-
-    if (loading) {
+    if (!user) {
         return <Loading />;
     }
 
@@ -41,10 +18,10 @@ const StudentPage = () => {
             <div className='main-content'>
                 <div className='page-head-container'>
                     <div className='page-head-title'>
-                        <h1>Olá, {student?.name}!</h1>
+                        <h1>Olá, {user.nome}!</h1>
                     </div>
                     <div className='ballance-text'>
-                        <TbCoin size={30} /> {student?.balance}
+                        <TbCoin size={30} /> {user.saldoMoedas}
                     </div>
                 </div>
             </div>

@@ -1,12 +1,12 @@
 // NavBar.jsx
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaHome, FaGift } from 'react-icons/fa';
 import { FaGear } from "react-icons/fa6";
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { RiFileList3Fill } from "react-icons/ri";
 import { IoLogOut } from "react-icons/io5";
-
+import { UserContext } from '../../contexts/UserContext';
 import './NavBar.css';
 
 function NavBar() {
@@ -14,6 +14,8 @@ function NavBar() {
     const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    const { setUser } = useContext(UserContext);
 
     useEffect(() => {
         const handleResize = () => {
@@ -28,6 +30,7 @@ function NavBar() {
     };
 
     const handleLogout = () => {
+        setUser(null);
         localStorage.removeItem('user');
         navigate('/login');
     };
@@ -75,9 +78,9 @@ function NavBar() {
                             </Link>
                         </li>
                         <li className="logout bottom-link">
-                            <Link to="/login" onClick={handleLogout}>
+                            <button onClick={handleLogout}>
                                 <IoLogOut /> Sair
-                            </Link>
+                            </button>
                         </li>
                     </ul>
                 </div>

@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
+import { UserContext } from '../../contexts/UserContext';
 import './Login.css';
 
 const LoginPage: React.FC = () => {
-    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [userType, setUserType] = useState('student');
-    const [selectedOption, setSelectedOption] = useState('');
+    const [userType, setUserType] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
+    const { setUser } = useContext(UserContext);
+
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
-        setSelectedOption(e.target.value);
+        setUserType(e.target.value);
     };
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,15 +29,15 @@ const LoginPage: React.FC = () => {
                 },
                 body: JSON.stringify({
                     email: email,
-                    name: name,
                     password: password,
                     userType: userType,
                 }),
             });
 
             if (response.ok) {
-                localStorage.setItem('user', JSON.stringify({ email, name, userType }));
-                console.log(userType);
+                const userData = await response.json();
+                setUser(userData);
+                console.log(userData);
                 if (userType === 'student') {
                     navigate('/student');
                 }
@@ -81,7 +82,7 @@ const LoginPage: React.FC = () => {
                         label="Tipo de usuário"
                         type="select"
                         placeholder="Escolha uma opção"
-                        value={selectedOption}
+                        value={userType}
                         onChange={handleSelectChange}
                         options={[
                             { value: 'student', label: 'Aluno' },
@@ -95,7 +96,7 @@ const LoginPage: React.FC = () => {
                         <p>Não possui uma conta? <a href='/register'>Cadastre-se</a></p>
                     </div>
 
-                    <CustomButton label="Entrar" />
+                    <CustomButton label="Entrar" type="submit" />
                 </form>
             </div>
         </div>
