@@ -6,6 +6,7 @@ import { FaGear } from "react-icons/fa6";
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { RiFileList3Fill } from "react-icons/ri";
 import { IoLogOut } from "react-icons/io5";
+import Loading from '../../components/Loading/Loading';
 import { UserContext } from '../../contexts/UserContext';
 import './NavBar.css';
 
@@ -16,6 +17,18 @@ function NavBar() {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
     const { setUser } = useContext(UserContext);
+
+    const { user } = useContext(UserContext);
+
+    const userTypesMap: Record<number, string> = {
+        1: 'student',
+        2: 'enterprise',
+        3: 'professor'
+    };
+
+    if (!user) {
+        return <Loading />;
+    }
 
     useEffect(() => {
         const handleResize = () => {
@@ -53,20 +66,31 @@ function NavBar() {
                 <h2>Menu</h2>
                 <ul className='nav-links'>
                     <li className={location.pathname === '/student' ? 'active' : ''}>
-                        <Link to="/student" onClick={closeSidebarOnClick}>
+                        <Link to={"/" + userTypesMap[user.userType]} onClick={closeSidebarOnClick}>
                             <FaHome /> Página Inicial
                         </Link>
                     </li>
-                    <li className={location.pathname === '/benefits' ? 'active' : ''}>
-                        <Link to="/benefits" onClick={closeSidebarOnClick}>
-                            <FaGift /> Benefícios
-                        </Link>
-                    </li>
-                    <li className={location.pathname === '/extract' ? 'active' : ''}>
-                        <Link to="/extract" onClick={closeSidebarOnClick}>
-                            <RiFileList3Fill /> Extrato
-                        </Link>
-                    </li>
+                    {(user.userType === 1) && (
+                        <>
+                            <li className={location.pathname === '/benefits' ? 'active' : ''}>
+                                <Link to="/benefits" onClick={closeSidebarOnClick}>
+                                    <FaGift /> Benefícios
+                                </Link>
+                            </li>
+                            <li className={location.pathname === '/extract' ? 'active' : ''}>
+                                <Link to="/extract" onClick={closeSidebarOnClick}>
+                                    <RiFileList3Fill /> Extrato
+                                </Link>
+                            </li>
+                        </>
+                    )}
+                    {(user.userType === 2) && (
+                        <li className={location.pathname === '/enterprise-benefits' ? 'active' : ''}>
+                            <Link to="/enterprise-benefits" onClick={closeSidebarOnClick}>
+                                <FaGift /> Cadastrar benefícios
+                            </Link>
+                        </li>
+                    )}
                 </ul>
 
                 <div className="nav-bottom-links">

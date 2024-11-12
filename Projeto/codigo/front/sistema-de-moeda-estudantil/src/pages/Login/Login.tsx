@@ -37,9 +37,10 @@ const LoginPage: React.FC = () => {
             if (response.ok) {
                 const userData = await response.json();
                 setUser(userData);
-                console.log(userData);
                 if (userType === 'student') {
                     navigate('/student');
+                } else if (userType === 'enterprise') {
+                    navigate('/enterprise');
                 }
             } else if (response.status === 401) {
                 setError("Usuário ou senha inválidos");

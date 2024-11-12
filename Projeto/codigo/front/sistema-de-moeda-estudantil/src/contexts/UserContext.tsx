@@ -1,18 +1,12 @@
 // UserContext.tsx
 import React, { createContext, useState, ReactNode } from 'react';
+import { Student } from '../types/Student';
+import { Enterprise } from '../types/Enterprise';
 
-interface User {
-    id: number;
-    nome: string;
-    email: string;
-    userType: string;
-    token: string;
-    saldoMoedas: number;
-}
 
 interface UserContextProps {
-    user: User | null;
-    setUser: (user: User | null) => void;
+    user: Student | Enterprise | null;
+    setUser: (user: Student | Enterprise | null) => void;
 }
 
 export const UserContext = createContext<UserContextProps>({
@@ -23,9 +17,9 @@ export const UserContext = createContext<UserContextProps>({
 export const UserProvider = ({ children }: { children: ReactNode }) => {
     const storedUser = localStorage.getItem('user');
     const initialUserState = storedUser ? JSON.parse(storedUser) : null;
-    const [user, setUserState] = useState<User | null>(initialUserState);
+    const [user, setUserState] = useState<Student | Enterprise | null>(initialUserState);
 
-    const setUser = (user: User | null) => {
+    const setUser = (user: Student | Enterprise | null) => {
         setUserState(user);
         if (user) {
             localStorage.setItem('user', JSON.stringify(user));

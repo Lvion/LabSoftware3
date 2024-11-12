@@ -9,6 +9,7 @@ import Extract from './pages/Extract/Extract';
 import { UserProvider } from './contexts/UserContext';
 import './App.css';
 import StudentPage from './pages/StudentPage/StudentPage';
+import EnterprisePage from './pages/EnterprisePage/EnterprisePage';
 
 const App: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const App: React.FC = () => {
             <Route path="/register" element={<RegisterPage />} />
             {/* Rotas protegidas*/}
             <Route path="/student" element={<ProtectedRoute element={StudentPage} />} />
+            <Route path="/enterprise" element={<ProtectedRoute element={EnterprisePage} />} />
             <Route path="/settings" element={<ProtectedRoute element={ProfileEditPage} />} />
             <Route path="/extract" element={<ProtectedRoute element={Extract} />} />
             <Route path="/" element={<LoginPage />} />

@@ -5,7 +5,7 @@ import CustomButton from '../../components/CustomButton/CustomButton';
 import CustomSelect from '../../components/CustomSelect/CustomSelect';
 import { IoMdArrowBack } from "react-icons/io";
 
-import Api from '../../utils/Api';
+import Api from '../../services/Api';
 
 import './Register.css';
 interface Instituicao {
@@ -73,13 +73,13 @@ const RegisterPage: React.FC = () => {
 
         try {
             const response = await Api.register(selectedOption, payload);
-            if (response.status === 200) {
+            if (response.status === 200 || response.status === 201) {
                 navigate('/login');
-
             } else {
                 setError('Erro ao registrar. Verifique os dados e tente novamente.');
             }
         } catch (error) {
+            console.error('Erro ao registrar:', error);
             setError('Erro ao registrar. Verifique os dados e tente novamente.');
         }
     };
@@ -190,7 +190,7 @@ const RegisterPage: React.FC = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <CustomButton label="Criar conta" onClick={() => handleRegister} />
+                    <CustomButton label="Criar conta" type="submit" />
                 </form>
             </div>
         </div>

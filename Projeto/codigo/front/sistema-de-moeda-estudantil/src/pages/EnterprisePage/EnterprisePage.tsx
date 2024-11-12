@@ -3,20 +3,14 @@ import { TbCoin } from "react-icons/tb";
 import { UserContext } from '../../contexts/UserContext';
 import Loading from '../../components/Loading/Loading';
 import NavBar from '../NavBar/NavBar';
-import './StudentPage.css';
+import './EnterprisePage.css';
 
-const StudentPage = () => {
-    function hasSaldoMoedas(userData: any): userData is { saldoMoedas: number } {
-        return 'saldoMoedas' in userData;
-    }
-
+const EnterprisePage = () => {
     const { user } = useContext(UserContext);
 
     if (!user) {
         return <Loading />;
     }
-
-    console.log(user);
 
     return (
         <div>
@@ -26,15 +20,10 @@ const StudentPage = () => {
                     <div className='page-head-title'>
                         <h1>Olá, {user.data.nome}!</h1>
                     </div>
-                    {hasSaldoMoedas(user.data) && (
-                        <div className='ballance-text'>
-                            <TbCoin size={30} /> {user.data.saldoMoedas}
-                        </div>
-                    )}
                 </div>
             </div>
         </div>
     );
 }
 
-export default StudentPage;
+export default EnterprisePage;
