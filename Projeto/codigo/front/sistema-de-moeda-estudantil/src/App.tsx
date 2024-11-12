@@ -10,6 +10,7 @@ import { UserProvider } from './contexts/UserContext';
 import './App.css';
 import StudentPage from './pages/StudentPage/StudentPage';
 import EnterprisePage from './pages/EnterprisePage/EnterprisePage';
+import RegisterBenefits from './pages/RegisterBenefits/RegisterBenefits';
 
 const App: React.FC = () => {
   return (
@@ -24,6 +25,7 @@ const App: React.FC = () => {
             <Route path="/enterprise" element={<ProtectedRoute element={EnterprisePage} />} />
             <Route path="/settings" element={<ProtectedRoute element={ProfileEditPage} />} />
             <Route path="/extract" element={<ProtectedRoute element={Extract} />} />
+            <Route path="/register-benefits" element={<ProtectedRoute element={RegisterBenefits} />} />
             <Route path="/" element={<LoginPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

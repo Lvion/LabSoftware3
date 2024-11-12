@@ -16,8 +16,6 @@ const StudentPage = () => {
         return <Loading />;
     }
 
-    console.log(user);
-
     return (
         <div>
             <NavBar />

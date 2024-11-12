@@ -54,6 +54,43 @@ class Api {
 
         return response.json();
     }
+
+    static async updateUser(type: string, data: object) {
+        const response = await fetch(`http://localhost:8080/api/${type}/update`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        return response;
+    }
+
+    static async deleteAccount(type: string, email: string) {
+        const response = await fetch(`http://localhost:8080/api/${type}/delete`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email,
+            }),
+        });
+
+        return response;
+    }
+
+    static async getProfessors() {
+        const response = await fetch('http://localhost:8080/api/professor/listar', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        return response.json();
+    }
 }
 
 export default Api;

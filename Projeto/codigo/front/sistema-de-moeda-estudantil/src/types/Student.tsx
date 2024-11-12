@@ -1,4 +1,5 @@
 import { Instituction } from "./Instituction";
+import { Transactions } from "./Transactions";
 
 export interface Student {
     data: {
@@ -9,6 +10,7 @@ export interface Student {
         curso: string;
         saldoMoedas: number;
         instituicao: Instituction;
+        transactions: Transactions[];
     };
     userType: number;
 }

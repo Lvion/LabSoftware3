@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import NavBar from '../NavBar/NavBar';
+import Loading from '../../components/Loading/Loading';
+import { UserContext } from '../../contexts/UserContext';
+import Api from '../../services/Api';
 import './ProfileEdit.css';
 
 const ProfileEditPage: React.FC = () => {
@@ -10,35 +13,47 @@ const ProfileEditPage: React.FC = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [userType, setUserType] = useState('');
+    const [userType, setUserType] = useState(Number);
+
+    const { user, setUser } = useContext(UserContext);
+
+    if (!user) {
+        return <Loading />;
+    }
+
+    const userTypesMap: Record<number, string> = {
+        1: 'student',
+        2: 'enterprise',
+        3: 'professor'
+    };
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('user') || '{}');
-        if (user) {
-            setName(user.name);
-            setUserType(user.userType);
-            setEmail(user.email);
-        }
-    }, []);
+        setName(user.data.nome);
+        setEmail(user.data.email);
+        setUserType(user.userType);
+    }, [user]);
 
     const handleSave = async () => {
         try {
-            const convertedUserType = userType === 'enterprise' ? 'empresa' : userType === 'student' ? 'aluno' : userType;
+            const convertedUserType = userTypesMap[userType];
 
-            const response = await fetch(`http://localhost:8080/api/${convertedUserType}/update`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    nome: name,
-                    email: email,
-                    senha: password,
-                }),
+            const response = await Api.updateUser(convertedUserType, {
+                nome: name,
+                email: email,
+                senha: password,
             });
 
             if (response.ok) {
                 alert('Dados atualizados com sucesso');
+
+                setUser({
+                    ...user,
+                    data: {
+                        ...(user.data as any),
+                        nome: name,
+                    },
+                });
+
             } else {
                 alert('Erro ao atualizar dados.');
             }
@@ -50,16 +65,8 @@ const ProfileEditPage: React.FC = () => {
     const handleDeleteAccount = async () => {
         if (window.confirm('Tem certeza de que deseja excluir sua conta? Essa ação não pode ser desfeita.')) {
             try {
-                const convertedUserType = userType === 'enterprise' ? 'empresa' : userType === 'student' ? 'aluno' : userType;
-                const response = await fetch(`http://localhost:8080/api/${convertedUserType}/delete`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                    }),
-                });
+                const convertedUserType = userTypesMap[userType];
+                const response = await Api.deleteAccount(convertedUserType, email);
 
                 if (response.ok) {
                     alert('Conta excluída com sucesso');
@@ -75,17 +82,19 @@ const ProfileEditPage: React.FC = () => {
     };
 
     return (
-        <div className="profile-edit-container">
+        <div>
             <NavBar />
-            <div className="profile-edit-card">
-                <div className="profile-edit-header">
-                    <h2>Editar Perfil</h2>
+            <div className='main-content'>
+                <div className='page-head-container'>
+                    <div className='page-head-title'>
+                        <h1>Editar perfil</h1>
+                    </div>
                 </div>
-                <form>
+                <div className='profile-edit-form'>
                     <CustomInput
                         label="Nome"
                         type="text"
-                        placeholder="Alterar nome"
+                        placeholder="Digite seu nome"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
@@ -97,18 +106,19 @@ const ProfileEditPage: React.FC = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        readOnly
                     />
                     <CustomInput
                         label="Senha"
                         type="password"
-                        placeholder="Digite sua nova senha"
+                        placeholder="Digite sua senha"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <CustomButton label="Salvar" onClick={handleSave} />
-                    <CustomButton label="Excluir Conta" onClick={handleDeleteAccount} />
-                </form>
+                    <div className='action-buttons-container'>
+                        <CustomButton label="Salvar alterações" onClick={handleSave} />
+                        <CustomButton label="Excluir conta" onClick={handleDeleteAccount} />
+                    </div>
+                </div>
             </div>
         </div>
     );

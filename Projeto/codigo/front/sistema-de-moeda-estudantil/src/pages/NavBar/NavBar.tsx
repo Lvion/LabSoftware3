@@ -86,7 +86,7 @@ function NavBar() {
                     )}
                     {(user.userType === 2) && (
                         <li className={location.pathname === '/enterprise-benefits' ? 'active' : ''}>
-                            <Link to="/enterprise-benefits" onClick={closeSidebarOnClick}>
+                            <Link to="/register-benefits" onClick={closeSidebarOnClick}>
                                 <FaGift /> Cadastrar benefícios
                             </Link>
                         </li>
