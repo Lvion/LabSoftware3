@@ -3,17 +3,27 @@ import NavBar from '../NavBar/NavBar';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import Api from '../../services/Api';
+import './RegisterBenefits.css';
 
 const RegisterBenefits: React.FC = () => {
     const [benefitName, setBenefitName] = useState('');
     const [benefitDescription, setBenefitDescription] = useState('');
     const [benefitValue, setBenefitValue] = useState('');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const handleRegisterBenefit = async () => {
+        setError('');
+        setSuccess('');
         const storedData = localStorage.getItem('user');
 
+        if (!benefitName.trim() || !benefitDescription.trim() || !benefitValue.trim()) {
+            setError('Por favor, preencha todos os campos.');
+            return;
+        }
+
         if (!storedData) {
-            alert("Empresa não encontrada no localStorage. Por favor, faça login novamente.");
+            setError('Usuário não encontrado. Faça login novamente.');
             return;
         }
 
@@ -21,7 +31,7 @@ const RegisterBenefits: React.FC = () => {
         const empresaId = empresaData.id;
 
         if (!empresaId) {
-            alert("ID da empresa não encontrado. Verifique os dados de login.");
+            setError('Usuário não encontrado. Faça login novamente.');
             return;
         }
 
@@ -34,16 +44,16 @@ const RegisterBenefits: React.FC = () => {
         try {
             const response = await Api.registerBenefit(empresaId, benefitData);
             if (response.ok) {
-                alert("Benefício registrado com sucesso!");
+                setSuccess('Benefício cadastrado com sucesso!');
                 setBenefitName('');
                 setBenefitDescription('');
                 setBenefitValue('');
             } else {
-                alert("Erro ao registrar o benefício.");
+                setError("Erro ao enviar os dados. Verifique os campos e tente novamente.");
             }
         } catch (error) {
             console.error("Erro ao enviar os dados:", error);
-            alert("Erro ao registrar o benefício.");
+            setError("Erro ao enviar os dados. Verifique os campos e tente novamente.");
         }
     };
 
@@ -57,6 +67,8 @@ const RegisterBenefits: React.FC = () => {
                         <h1>Registrar benefícios</h1>
                     </div>
                 </div>
+                {error && <div className='error-message'>{error}</div>}
+                {success && <div className='success-message'>{success}</div>}
                 <div className='benefits-form'>
                     <CustomInput
                         label="Nome do benefício"

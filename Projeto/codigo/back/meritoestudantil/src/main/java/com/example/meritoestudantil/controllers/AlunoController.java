@@ -22,7 +22,6 @@ public class AlunoController {
     @Autowired
     private AlunoRepository alunoRepository;
 
-
     @PostMapping("/salvar")
     public ResponseEntity<?> salvarAluno(@RequestBody Map<String, Object> alunoPayload) {
         try {
@@ -36,6 +35,7 @@ public class AlunoController {
             aluno.setEmail(alunoPayload.get("email").toString());
             aluno.setSenha(alunoPayload.get("senha").toString());
             aluno.setEndereco(alunoPayload.get("endereco").toString());
+            aluno.setSaldoMoedas(0);
 
             alunoService.salvarAluno(aluno, instituicaoId);
 
@@ -74,6 +74,7 @@ public class AlunoController {
             return ResponseEntity.status(404).body("Erro ao excluir aluno. Aluno não encontrado.");
         }
     }
+
     @GetMapping("/listar")
     public List<Aluno> listarAlunos() {
         return alunoRepository.findAll();

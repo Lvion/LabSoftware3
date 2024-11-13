@@ -20,7 +20,8 @@ public class TransacaoController {
             String professorEmail = (String) request.get("professorEmail");
             Long alunoId = Long.parseLong(request.get("alunoId").toString());
             int quantidadeMoedas = Integer.parseInt(request.get("quantidadeMoedas").toString());
-            String descricao = (String) request.getOrDefault("descricao", "Transferência de moedas por bom desempenho");
+            String descricao = (String) request.get("descricao") != "" ? (String) request.get("descricao")
+                    : "Transferência de moedas";
 
             String resultado = transacaoService.transferirMoedas(professorEmail, alunoId, quantidadeMoedas, descricao);
             if ("Transferência realizada com sucesso.".equals(resultado)) {

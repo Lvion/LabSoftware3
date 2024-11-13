@@ -25,6 +25,7 @@
     font-size: 1em;
     color: #555;
     margin: 4px 0;
+    overflow-wrap: break-word;
 }
 
 .benefits-card-info p:last-of-type {
