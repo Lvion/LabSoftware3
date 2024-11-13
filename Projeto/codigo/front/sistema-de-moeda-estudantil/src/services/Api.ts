@@ -114,6 +114,43 @@ class Api {
 
         return response.json();
     }
+
+    static async sendCredits(professorEmail: string, alunoId: string, quantidadeMoedas: number, descricao: string) {
+        const response = await fetch(`http://localhost:8080/api/transacoes/transferir`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                professorEmail,
+                alunoId,
+                quantidadeMoedas,
+                descricao,
+            }),
+        });
+
+        return response;
+    }
+
+    static async getAllStudents() {
+        const response = await fetch('http://localhost:8080/api/student/listar', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        return response.json();
+    }
+
+    static async getStudentsByInstitution(institutionId: string) {
+        const response = await fetch(`http://localhost:8080/api/student/listar?instituicaoId=${institutionId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        return response.json();
+    }
 }
 
 export default Api;

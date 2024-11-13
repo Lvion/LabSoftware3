@@ -91,6 +91,13 @@ function NavBar() {
                             </Link>
                         </li>
                     )}
+                    {(user.userType === 3) && (
+                        <li className={location.pathname === '/send-benefits' ? 'active' : ''}>
+                            <Link to="/send-credits" onClick={closeSidebarOnClick}>
+                                <FaGift /> Enviar Créditos
+                            </Link>
+                        </li>
+                    )}
                 </ul>
 
                 <div className="nav-bottom-links">

@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react';
+import { useContext } from 'react';
 import './Extract.css';
 import NavBar from '../NavBar/NavBar';
 import { UserContext } from '../../contexts/UserContext';
 import { Transactions } from '../../types/Transactions';
-import { Professor } from '../../types/Professor';
 
 const Extract = () => {
     const { user } = useContext(UserContext);

@@ -13,6 +13,7 @@ import EnterprisePage from './pages/EnterprisePage/EnterprisePage';
 import ProfessorPage from './pages/ProfessorPage/ProfessorPage';
 import RegisterBenefits from './pages/RegisterBenefits/RegisterBenefits';
 import BenefitsPage from './pages/BenefitsPage/BenefitsPage';
+import SendBenefits from './pages/SendCredits/SendCredits';
 
 const App: React.FC = () => {
   return (
@@ -29,6 +30,7 @@ const App: React.FC = () => {
             <Route path="/settings" element={<ProtectedRoute element={ProfileEditPage} />} />
             <Route path="/extract" element={<ProtectedRoute element={Extract} />} />
             <Route path="/register-benefits" element={<ProtectedRoute element={RegisterBenefits} />} />
+            <Route path="/send-credits" element={<ProtectedRoute element={SendBenefits} />} />
             <Route path="/benefits" element={<ProtectedRoute element={BenefitsPage} />} />
             <Route path="/" element={<LoginPage />} />
             <Route path="*" element={<NotFound />} />

@@ -41,6 +41,8 @@ const LoginPage: React.FC = () => {
                     navigate('/student');
                 } else if (userType === 'enterprise') {
                     navigate('/enterprise');
+                } else if (userType === 'professor') {
+                    navigate('/professor');
                 }
             } else if (response.status === 401) {
                 setError("Usuário ou senha inválidos");
