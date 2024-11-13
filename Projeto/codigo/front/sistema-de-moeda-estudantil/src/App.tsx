@@ -12,6 +12,7 @@ import StudentPage from './pages/StudentPage/StudentPage';
 import EnterprisePage from './pages/EnterprisePage/EnterprisePage';
 import ProfessorPage from './pages/ProfessorPage/ProfessorPage';
 import RegisterBenefits from './pages/RegisterBenefits/RegisterBenefits';
+import BenefitsPage from './pages/BenefitsPage/BenefitsPage';
 
 const App: React.FC = () => {
   return (
@@ -28,6 +29,7 @@ const App: React.FC = () => {
             <Route path="/settings" element={<ProtectedRoute element={ProfileEditPage} />} />
             <Route path="/extract" element={<ProtectedRoute element={Extract} />} />
             <Route path="/register-benefits" element={<ProtectedRoute element={RegisterBenefits} />} />
+            <Route path="/benefits" element={<ProtectedRoute element={BenefitsPage} />} />
             <Route path="/" element={<LoginPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -91,6 +91,29 @@ class Api {
 
         return response.json();
     }
+
+    static async registerBenefit(entrepriseId: string, data: object) {
+        const response = await fetch(`http://localhost:8080/api/vantagens/registrar?empresaId=${entrepriseId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        return response;
+    }
+
+    static async getBenefits() {
+        const response = await fetch('http://localhost:8080/api/vantagens/listar', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        return response.json();
+    }
 }
 
 export default Api;

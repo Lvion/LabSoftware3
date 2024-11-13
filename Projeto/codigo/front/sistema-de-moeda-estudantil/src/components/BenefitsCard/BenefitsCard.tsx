@@ -1,17 +1,18 @@
-import React from 'react';
+import { Benefit } from '../../types/Benefits';
+import CustomButton from '../CustomButton/CustomButton';
 import './BenefitsCard.css';
 
-interface BenefitsCardProps {
-    title: string;
-    description: string;
-}
 
-const BenefitsCard = ({ title, description }: BenefitsCardProps) => {
+const BenefitsCard = ({ nome, descricao, custoEmMoedas }: Benefit) => {
     return (
         <div className='benefits-card'>
             <div className='benefits-card-info'>
-                <h3>{title}</h3>
-                <p>{description}</p>
+                <h3>{nome}</h3>
+                <p>{descricao}</p>
+                <p>Valor: {custoEmMoedas}</p>
+                <div className='benefits-actions'>
+                    <CustomButton label="Comprar benefício" type="submit" />
+                </div>
             </div>
         </div>
     );

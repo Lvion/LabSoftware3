@@ -1,0 +1,16 @@
+.head-title {
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.benefits-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.benefits-card {
+    width: 240px;
+    margin: 8px;
+}

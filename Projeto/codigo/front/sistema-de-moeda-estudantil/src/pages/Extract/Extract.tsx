@@ -8,7 +8,6 @@ import { Professor } from '../../types/Professor';
 const Extract = () => {
     const { user } = useContext(UserContext);
     const studentExtract: Transactions[] = user && user.data && 'transacoes' in user.data ? user.data.transacoes : [];
-    const [professors, setProfessors] = useState<Professor[]>([]);
 
     return (
         <div>

@@ -47,8 +47,8 @@ const CustomInput: React.FC<CustomInputProps> = ({
           value={value}
           onChange={onChange}
           required={required}
-          readOnly={readOnly}  // Aplicando o readOnly aqui
-          style={style}  // Aplicando o estilo customizado aqui
+          readOnly={readOnly}
+          style={style}
         />
       )}
     </div>
