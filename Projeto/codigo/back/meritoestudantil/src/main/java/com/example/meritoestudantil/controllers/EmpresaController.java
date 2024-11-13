@@ -1,11 +1,13 @@
 package com.example.meritoestudantil.controllers;
 
 import com.example.meritoestudantil.models.Empresa;
+import com.example.meritoestudantil.repositories.EmpresaRepository;
 import com.example.meritoestudantil.services.EmpresaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -14,6 +16,8 @@ public class EmpresaController {
 
     @Autowired
     private EmpresaService empresaService;
+    private EmpresaRepository empresaRepository;
+
 
     @PostMapping("/salvar")
     public ResponseEntity<?> salvarEmpresa(@RequestBody Empresa empresaParceira) throws Exception {
@@ -46,5 +50,9 @@ public class EmpresaController {
         } else {
             return ResponseEntity.status(404).body("Erro ao excluir empresa. Empresa não encontrada.");
         }
+    }
+    @GetMapping("/listar")
+    public List<Empresa> listarEmpresas() {
+        return empresaRepository.findAll();
     }
 }

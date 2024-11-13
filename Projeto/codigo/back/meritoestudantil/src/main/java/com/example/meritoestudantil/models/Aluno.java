@@ -1,5 +1,6 @@
 package com.example.meritoestudantil.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.util.List;
@@ -46,6 +47,7 @@ public class Aluno {
     private Instituicao instituicao;
 
     @OneToMany(mappedBy = "aluno")
+    @JsonManagedReference
     private List<Transacao> transacoes;
 
     public void setInstituicao(Instituicao instituicao) {

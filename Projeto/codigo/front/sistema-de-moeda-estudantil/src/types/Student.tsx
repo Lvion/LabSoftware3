@@ -10,7 +10,7 @@ export interface Student {
         curso: string;
         saldoMoedas: number;
         instituicao: Instituction;
-        transactions: Transactions[];
+        transacoes: Transactions[];
     };
     userType: number;
 }

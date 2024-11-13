@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import NavBar from '../NavBar/NavBar';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
@@ -7,6 +7,51 @@ const RegisterBenefits: React.FC = () => {
     const [benefitName, setBenefitName] = useState('');
     const [benefitDescription, setBenefitDescription] = useState('');
     const [benefitValue, setBenefitValue] = useState('');
+
+    const handleRegisterBenefit = async () => {
+        const storedData = localStorage.getItem('user');
+        
+        if (!storedData) {
+            alert("Empresa não encontrada no localStorage. Por favor, faça login novamente.");
+            return;
+        }
+    
+        const empresaData = JSON.parse(storedData).data;
+        const empresaId = empresaData.id;
+    
+        if (!empresaId) {
+            alert("ID da empresa não encontrado. Verifique os dados de login.");
+            return;
+        }
+    
+        const benefitData = {
+            nome: benefitName,
+            descricao: benefitDescription,
+            custoEmMoedas: parseInt(benefitValue)
+        };
+    
+        try {
+            const response = await fetch(`http://localhost:8080/api/vantagens/registrar?empresaId=${empresaId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(benefitData),
+            });
+            if (response.ok) {
+                alert("Benefício registrado com sucesso!");
+                setBenefitName('');
+                setBenefitDescription('');
+                setBenefitValue('');
+            } else {
+                alert("Erro ao registrar o benefício.");
+            }
+        } catch (error) {
+            console.error("Erro ao enviar os dados:", error);
+            alert("Erro ao registrar o benefício.");
+        }
+    };
+    
 
     return (
         <div>
@@ -42,7 +87,7 @@ const RegisterBenefits: React.FC = () => {
                         onChange={(e) => setBenefitValue(e.target.value)}
                         required
                     />
-                    <CustomButton label="Cadastrar benefício" onClick={() => { }} />
+                    <CustomButton label="Cadastrar benefício" onClick={handleRegisterBenefit} />
                 </div>
             </div>
         </div>

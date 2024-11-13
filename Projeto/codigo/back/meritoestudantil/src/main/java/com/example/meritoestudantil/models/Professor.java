@@ -25,6 +25,15 @@ public class Professor {
     @JsonProperty("cpf")
     private String cpf;
 
+    @JsonProperty("email")
+    private String email;
+
+    @JsonProperty("senha")
+    private String senha;
+
+    @JsonProperty("saldoMoedas")
+    private Integer saldoMoedas;
+
     @ManyToOne
     @JoinColumn(name = "departamento_id")
     private Departamento departamento;
@@ -36,4 +45,23 @@ public class Professor {
     @OneToMany(mappedBy = "professor")
     private List<Transacao> transacoes;
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public Integer getSaldoMoedas() {
+        return saldoMoedas;
+    }
+
+    public void setSaldoMoedas(Integer saldoMoedas) {
+        this.saldoMoedas = saldoMoedas;
+    }
 }

@@ -34,7 +34,7 @@ class Api {
     }
 
     static async getStudent() {
-        const response = await fetch('http://localhost:8080/api/estudante/obter', {
+        const response = await fetch('http://localhost:8080/api/student/listar', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ class Api {
     }
 
     static async getEnterprise() {
-        const response = await fetch('http://localhost:8080/api/empresa/obter', {
+        const response = await fetch('http://localhost:8080/api/entreprise/listar', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

@@ -2,6 +2,8 @@ package com.example.meritoestudantil.controllers;
 
 import java.util.Map;
 
+import com.example.meritoestudantil.models.Professor;
+import com.example.meritoestudantil.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +26,9 @@ public class LoginController {
     @Autowired
     private EmpresaService empresaService;
 
+    @Autowired
+    private ProfessorService professorService;
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         String userType = loginRequest.getUserType();
@@ -37,6 +42,11 @@ public class LoginController {
             Empresa empresa = empresaService.validarLogin(loginRequest.getEmail(), loginRequest.getPassword());
             if (empresa != null) {
                 return ResponseEntity.ok().body(Map.of("userType", 2, "data", empresa));
+            }
+        } else if ("professor".equals(userType)) {
+            Professor professor = professorService.validarLogin(loginRequest.getEmail(), loginRequest.getPassword());
+            if (professor != null) {
+                return ResponseEntity.ok().body(Map.of("userType", 3, "data", professor));
             }
         }
 

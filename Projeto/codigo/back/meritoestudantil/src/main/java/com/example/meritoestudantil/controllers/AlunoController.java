@@ -1,6 +1,7 @@
 package com.example.meritoestudantil.controllers;
 
 import com.example.meritoestudantil.models.Aluno;
+import com.example.meritoestudantil.repositories.AlunoRepository;
 import com.example.meritoestudantil.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -16,6 +18,10 @@ public class AlunoController {
 
     @Autowired
     private AlunoService alunoService;
+
+    @Autowired
+    private AlunoRepository alunoRepository;
+
 
     @PostMapping("/salvar")
     public ResponseEntity<?> salvarAluno(@RequestBody Map<String, Object> alunoPayload) {
@@ -67,5 +73,9 @@ public class AlunoController {
         } else {
             return ResponseEntity.status(404).body("Erro ao excluir aluno. Aluno não encontrado.");
         }
+    }
+    @GetMapping("/listar")
+    public List<Aluno> listarAlunos() {
+        return alunoRepository.findAll();
     }
 }

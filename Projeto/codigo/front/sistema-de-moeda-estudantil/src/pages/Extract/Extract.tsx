@@ -7,7 +7,7 @@ import { Professor } from '../../types/Professor';
 
 const Extract = () => {
     const { user } = useContext(UserContext);
-    const studentExtract: Transactions[] = user && user.data && 'transactions' in user.data ? user.data.transactions : [];
+    const studentExtract: Transactions[] = user && user.data && 'transacoes' in user.data ? user.data.transacoes : [];
     const [professors, setProfessors] = useState<Professor[]>([]);
 
     return (
@@ -22,8 +22,8 @@ const Extract = () => {
                         <thead>
                             <tr>
                                 <th>Data</th>
-                                <th>Professor</th>
                                 <th>Descrição</th>
+                                <th>Professor</th>
                                 <th>Valor</th>
                             </tr>
                         </thead>
@@ -31,9 +31,9 @@ const Extract = () => {
                             {studentExtract.map((extract) => (
                                 <tr key={extract.id}>
                                     <td>{extract.data}</td>
-                                    <td>{extract.profesor_id}</td>
                                     <td>{extract.descricao}</td>
-                                    <td>{extract.quantidade_moedas}</td>
+                                    <td>{extract.nomeProfessor}</td>
+                                    <td>{extract.quantidadeMoedas}</td>
                                 </tr>
                             ))}
                         </tbody>
