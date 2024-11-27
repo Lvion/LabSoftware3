@@ -1,0 +1,18 @@
+@startuml
+actor "Aluno" as Aluno
+participant "Sistema" as Sistema
+participant "Empresa Parceira" as Empresa
+
+activate Empresa
+Empresa -> Sistema : Solicitar envio de cupom para aluno
+activate Sistema
+
+Sistema -> Aluno : Enviar cupom
+activate Aluno
+Aluno --> Sistema : Confirmar recebimento
+deactivate Aluno
+
+Sistema -> Empresa : Confirmar envio do cupom
+deactivate Sistema
+deactivate Empresa
+@enduml

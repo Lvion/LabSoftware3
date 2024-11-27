@@ -1,0 +1,18 @@
+@startuml
+actor "Empresa Parceira" as Empresa
+participant "Sistema" as Sistema
+
+activate Empresa
+Empresa -> Sistema : Solicitar cadastro de vantagem
+activate Sistema
+
+Sistema -> Sistema : Validar dados da vantagem
+alt Dados válidos
+    Sistema -> Empresa : Confirmar cadastro da vantagem
+else Dados inválidos
+    Sistema -> Empresa : Informar erro no cadastro
+end
+
+deactivate Sistema
+deactivate Empresa
+@enduml

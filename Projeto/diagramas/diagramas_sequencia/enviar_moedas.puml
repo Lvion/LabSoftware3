@@ -1,0 +1,29 @@
+@startuml
+actor "Professor" as Professor
+actor "Relógio" as Relogio
+participant "Sistema" as Sistema
+participant "Aluno" as Aluno
+
+activate Professor
+Professor -> Sistema : Solicitar envio de moedas
+activate Sistema
+
+Sistema -> Relogio : Verificar validade da solicitação (ex.: horário permitido)
+activate Relogio
+Relogio --> Sistema : Resposta (válida/inválida)
+deactivate Relogio
+
+alt Solicitação válida
+    Sistema -> Sistema : Processar transferência de moedas
+    Sistema -> Aluno : Notificar recebimento de moedas
+    activate Aluno
+    Aluno --> Sistema : Confirmação de recebimento
+    deactivate Aluno
+else Solicitação inválida
+    Sistema -> Professor : Informar falha na solicitação
+end
+
+Sistema --> Professor : Confirmar conclusão da operação
+deactivate Sistema
+deactivate Professor
+@enduml

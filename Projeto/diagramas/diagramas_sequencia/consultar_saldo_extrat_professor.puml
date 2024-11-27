@@ -1,0 +1,14 @@
+@startuml
+actor "Professor" as Professor
+participant "Sistema" as Sistema
+
+activate Professor
+Professor -> Sistema : Solicitar saldo e extrato
+activate Sistema
+
+Sistema -> Sistema : Buscar informações do professor
+Sistema -> Professor : Retornar saldo e extrato
+
+deactivate Sistema
+deactivate Professor
+@enduml
