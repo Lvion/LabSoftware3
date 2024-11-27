@@ -23,6 +23,7 @@ const Extract = () => {
                                 <th>Descrição</th>
                                 <th>Professor</th>
                                 <th>Valor</th>
+                                <th>Tipo de Transação</th> {/* Nova coluna */}
                             </tr>
                         </thead>
                         <tbody>
@@ -32,6 +33,7 @@ const Extract = () => {
                                     <td>{extract.descricao}</td>
                                     <td>{extract.nomeProfessor}</td>
                                     <td>{extract.quantidadeMoedas}</td>
+                                    <td>{extract.tipoTransacao}</td> {/* Novo campo */}
                                 </tr>
                             ))}
                         </tbody>
@@ -40,6 +42,6 @@ const Extract = () => {
             </div>
         </div>
     );
-}
+};
 
 export default Extract;

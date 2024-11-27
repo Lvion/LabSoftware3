@@ -18,8 +18,9 @@ public class VantagemService {
 
     public void salvarVantagem(Long empresaId, Vantagem vantagem) {
         Empresa empresa = empresaRepository.findById(empresaId)
-                .orElseThrow(() -> new RuntimeException("Empresa não encontrada"));
+                .orElseThrow(() -> new RuntimeException("Empresa não encontrada."));
         vantagem.setEmpresa(empresa);
         vantagemRepository.save(vantagem);
     }
+
 }

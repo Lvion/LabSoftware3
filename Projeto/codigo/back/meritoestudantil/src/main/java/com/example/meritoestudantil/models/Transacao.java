@@ -23,14 +23,24 @@ public class Transacao {
     @JsonProperty("descricao")
     private String descricao;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_transacao")
+    private TipoTransacao tipoTransacao;
+
     @ManyToOne
     @JoinColumn(name = "aluno_id")
     @JsonBackReference
     private Aluno aluno;
 
     @ManyToOne
-    @JoinColumn(name = "professor_id")
+    @JoinColumn(name = "professor_id", nullable = true) // Opcional para COMPRA_BENEFICIO
     private Professor professor;
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "vantagem_id", nullable = true) // Opcional para TRANSFERENCIA
+    private Vantagem vantagem;
 
     @JsonProperty("nomeProfessor")
     public String getNomeProfessor() {
@@ -69,6 +79,14 @@ public class Transacao {
         this.descricao = descricao;
     }
 
+    public TipoTransacao getTipoTransacao() {
+        return tipoTransacao;
+    }
+
+    public void setTipoTransacao(TipoTransacao tipoTransacao) {
+        this.tipoTransacao = tipoTransacao;
+    }
+
     public Aluno getAluno() {
         return aluno;
     }
@@ -83,5 +101,16 @@ public class Transacao {
 
     public void setProfessor(Professor professor) {
         this.professor = professor;
+    }
+
+
+
+
+    public Vantagem getVantagem() {
+        return vantagem;
+    }
+
+    public void setVantagem(Vantagem vantagem) {
+        this.vantagem = vantagem;
     }
 }

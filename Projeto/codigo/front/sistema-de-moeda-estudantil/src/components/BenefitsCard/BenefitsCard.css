@@ -9,16 +9,27 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center; /* Centraliza o conteúdo */
 }
 
 .benefits-card:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Estilo para a imagem do benefício */
+.benefit-image {
+    max-width: 100%; /* Limita a largura da imagem ao tamanho do card */
+    max-height: 150px; /* Limita a altura da imagem */
+    object-fit: cover; /* Mantém a proporção da imagem */
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
 .benefits-card-info h3 {
     font-size: 1.5em;
     color: #333;
     margin-bottom: 8px;
+    text-align: center;
 }
 
 .benefits-card-info p {
@@ -26,6 +37,7 @@
     color: #555;
     margin: 4px 0;
     overflow-wrap: break-word;
+    text-align: center;
 }
 
 .benefits-card-info p:last-of-type {

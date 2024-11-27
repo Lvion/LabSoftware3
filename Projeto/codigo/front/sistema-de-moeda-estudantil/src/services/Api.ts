@@ -124,11 +124,29 @@ class Api {
                 alunoId,
                 quantidadeMoedas,
                 descricao,
+                tipoTransacao: "TRANSFERENCIA", 
             }),
         });
-
+    
         return response;
     }
+
+    static async buyBenefit(alunoEmail: string, vantagemId: number) {
+        const response = await fetch('http://localhost:8080/api/vantagens/transacoes/comprar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                alunoEmail,
+                vantagemId,
+            }),
+        });
+    
+        return response;
+    }
+    
+
+    
+    
 
     static async getAllStudents() {
         const response = await fetch('http://localhost:8080/api/student/listar', {

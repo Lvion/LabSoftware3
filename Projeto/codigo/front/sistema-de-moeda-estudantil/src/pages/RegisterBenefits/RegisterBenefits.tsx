@@ -11,6 +11,14 @@ const RegisterBenefits: React.FC = () => {
     const [benefitValue, setBenefitValue] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [benefitImage, setBenefitImage] = useState<File | null>(null);
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setBenefitImage(e.target.files[0]);
+        }
+    };
+
 
     const handleRegisterBenefit = async () => {
         setError('');
@@ -35,27 +43,36 @@ const RegisterBenefits: React.FC = () => {
             return;
         }
 
-        const benefitData = {
-            nome: benefitName,
-            descricao: benefitDescription,
-            custoEmMoedas: parseInt(benefitValue)
-        };
+        const formData = new FormData();
+        formData.append('nome', benefitName);
+        formData.append('descricao', benefitDescription);
+        formData.append('custoEmMoedas', benefitValue);
+        if (benefitImage) {
+            formData.append('imagem', benefitImage);
+        }
 
         try {
-            const response = await Api.registerBenefit(empresaId, benefitData);
+            const response = await fetch(`http://localhost:8080/api/vantagens/registrar?empresaId=${empresaId}`, {
+                method: 'POST',
+                body: formData,
+            });
+
+
             if (response.ok) {
                 setSuccess('Benefício cadastrado com sucesso!');
                 setBenefitName('');
                 setBenefitDescription('');
                 setBenefitValue('');
+                setBenefitImage(null);
             } else {
-                setError("Erro ao enviar os dados. Verifique os campos e tente novamente.");
+                setError('Erro ao enviar os dados. Verifique os campos e tente novamente.');
             }
         } catch (error) {
-            console.error("Erro ao enviar os dados:", error);
-            setError("Erro ao enviar os dados. Verifique os campos e tente novamente.");
+            console.error('Erro ao enviar os dados:', error);
+            setError('Erro ao enviar os dados. Verifique os campos e tente novamente.');
         }
     };
+
 
 
     return (
@@ -94,6 +111,14 @@ const RegisterBenefits: React.FC = () => {
                         onChange={(e) => setBenefitValue(e.target.value)}
                         required
                     />
+                    <CustomInput
+                        label="Imagem do benefício"
+                        type="file"
+                        placeholder="Selecione uma imagem"
+                        onChange={handleImageChange}
+                        required
+                    />
+
                     <CustomButton label="Cadastrar benefício" onClick={handleRegisterBenefit} />
                 </div>
             </div>

@@ -1,5 +1,6 @@
 export interface Benefit {
-    custoEmMoedas: number;
-    descricao: string;
     nome: string;
+    descricao: string;
+    custoEmMoedas: number;
+    imagem?: string; 
 }

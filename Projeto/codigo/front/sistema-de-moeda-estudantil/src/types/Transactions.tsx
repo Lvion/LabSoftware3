@@ -5,4 +5,6 @@ export interface Transactions {
     quantidadeMoedas: number;
     aluno_id: string;
     nomeProfessor: string;
+    tipoTransacao: string; 
+
 }

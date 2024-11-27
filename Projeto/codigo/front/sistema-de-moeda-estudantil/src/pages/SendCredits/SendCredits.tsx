@@ -42,16 +42,16 @@ const SendBenefits = () => {
             setError("Preencha todos os campos obrigatórios.");
             return;
         }
-
+    
         const quantidade = parseInt(quantidadeMoedas);
         if ('saldoMoedas' in user.data && user.data.saldoMoedas < quantidade) {
             setError("Saldo insuficiente.");
             return;
         }
-
+    
         try {
             const response = await Api.sendCredits(user.data.email, selectedAluno, quantidade, descricao);
-
+    
             if (response.ok) {
                 if ('saldoMoedas' in user.data) {
                     const newSaldo = user.data.saldoMoedas - quantidade;
@@ -69,6 +69,7 @@ const SendBenefits = () => {
             setError("Erro ao fazer transferência.");
         }
     };
+    
 
     if (!user) {
         return <Loading />;
