@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -51,5 +52,8 @@ public class TransacaoVantagemService {
         transacaoVantagemRepository.save(transacao);
 
         return "Compra realizada com sucesso. Código de confirmação: " + transacao.getCodigoConfirmacao();
+    }
+    public List<TransacaoVantagem> listarTransacoesPorAluno(String email) {
+        return transacaoVantagemRepository.findByAlunoEmail(email);
     }
 }

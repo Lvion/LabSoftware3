@@ -53,6 +53,8 @@ public class VantagemController {
 
     @GetMapping("/listar")
     public List<Vantagem> listarVantagens() {
-        return vantagemRepository.findAll();
+        List<Vantagem> vantagens = vantagemRepository.findAll();
+        vantagens.forEach(v -> System.out.println("Vantagem ID: " + v.getId() + ", Nome: " + v.getNome())); // Log para depuração
+        return vantagens;
     }
 }
