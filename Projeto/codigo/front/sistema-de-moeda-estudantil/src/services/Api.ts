@@ -124,10 +124,10 @@ class Api {
                 alunoId,
                 quantidadeMoedas,
                 descricao,
-                tipoTransacao: "TRANSFERENCIA", 
+                tipoTransacao: "TRANSFERENCIA",
             }),
         });
-    
+
         return response;
     }
 
@@ -140,13 +140,13 @@ class Api {
                 vantagemId,
             }),
         });
-    
+
         return response;
     }
-    
 
-    
-    
+
+
+
 
     static async getAllStudents() {
         const response = await fetch('http://localhost:8080/api/student/listar', {
@@ -169,6 +169,17 @@ class Api {
 
         return response.json();
     }
+
+    static async getStudentAdvantages(email: string) {
+        const response = await fetch(`http://localhost:8080/api/vantagens/transacoes/extrato?email=${email}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        return response.json();
+    }
+
 }
 
 export default Api;

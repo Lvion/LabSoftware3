@@ -7,19 +7,24 @@ interface BenefitsCardProps {
     descricao: string;
     custoEmMoedas: number;
     imagem?: string;
-    onBuy: () => void; // Função passada como prop para tratar a compra
+    onBuy?: () => void;
+    adquirido?: boolean;
 }
 
-const BenefitsCard: React.FC<BenefitsCardProps> = ({ nome, descricao, custoEmMoedas, imagem, onBuy }) => {
+const BenefitsCard: React.FC<BenefitsCardProps> = ({ nome, descricao, custoEmMoedas, imagem, onBuy, adquirido }) => {
     return (
-        <div className="benefits-card">
+        <div className={`benefits-card ${adquirido ? 'adquirido' : ''}`}>
             {imagem && <img src={`data:image/png;base64,${imagem}`} alt={nome} className="benefit-image" />}
             <div className="benefits-card-info">
                 <h3>{nome}</h3>
                 <p>{descricao}</p>
                 <p>Valor: {custoEmMoedas} moedas</p>
                 <div className="benefits-actions">
-                    <CustomButton label="Comprar benefício" onClick={onBuy} />
+                    {adquirido ? (
+                        <span className="adquirido-label">Já adquirido</span>
+                    ) : (
+                        onBuy && <CustomButton label="Comprar benefício" onClick={onBuy} />
+                    )}
                 </div>
             </div>
         </div>
