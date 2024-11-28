@@ -8,10 +8,6 @@ import Api from '../../services/Api';
 import './StudentPage.css';
 
 const StudentPage = () => {
-    function hasSaldoMoedas(userData: any): userData is { saldoMoedas: number } {
-        return 'saldoMoedas' in userData;
-    }
-
     const { user } = useContext(UserContext);
     const [advantages, setAdvantages] = useState([]);
 
@@ -39,11 +35,6 @@ const StudentPage = () => {
                     <div className='page-head-title'>
                         <h1>Olá, {user.data.nome}!</h1>
                     </div>
-                    {hasSaldoMoedas(user.data) && (
-                        <div className='ballance-text'>
-                            <TbCoin size={30} /> {user.data.saldoMoedas}
-                        </div>
-                    )}
                 </div>
                 <div className='advantages-list'>
                     <div className='advantages-text'>

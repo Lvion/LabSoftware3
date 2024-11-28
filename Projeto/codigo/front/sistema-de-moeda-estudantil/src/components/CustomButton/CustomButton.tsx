@@ -1,12 +1,6 @@
 import React from 'react';
 import './CustomButton.css';
-
-interface CustomButtonProps {
-  label: string;
-  type?: 'button' | 'submit' | 'reset';
-  onClick?: () => void;
-  disabled?: boolean;
-}
+import { CustomButtonProps } from '../../types/CustomButton';
 
 const CustomButton: React.FC<CustomButtonProps> = ({ label, type = 'button', onClick, disabled = false }) => {
   return (

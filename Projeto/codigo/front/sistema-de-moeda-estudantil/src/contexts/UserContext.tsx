@@ -1,13 +1,7 @@
-// UserContext.tsx
-import React, { createContext, useState, ReactNode } from 'react';
+import { createContext, useState, ReactNode } from 'react';
 import { Student } from '../types/Student';
 import { Enterprise } from '../types/Enterprise';
-
-
-interface UserContextProps {
-    user: Student | Enterprise | null;
-    setUser: (user: Student | Enterprise | null) => void;
-}
+import { UserContextProps } from '../types/UserContext';
 
 export const UserContext = createContext<UserContextProps>({
     user: null,

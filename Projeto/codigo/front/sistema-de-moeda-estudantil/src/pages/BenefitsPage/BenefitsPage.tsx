@@ -1,16 +1,28 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import BenefitsCard from '../../components/BenefitsCard/BenefitsCard';
 import Api from '../../services/Api';
 import { Benefit } from '../../types/Benefits';
 import NavBar from '../NavBar/NavBar';
 import { UserContext } from '../../contexts/UserContext';
 import './BenefitsPage.css';
+import ModalOverlay from '../../components/ModalOverlay/ModalOverlay';
+import { TbCoin } from 'react-icons/tb';
 
 const BenefitsPage = () => {
-    const [benefits, setBenefits] = React.useState<Benefit[]>([]);
-    const { user, setUser } = React.useContext(UserContext);
-    const [error, setError] = React.useState('');
-    const [success, setSuccess] = React.useState('');
+    const [benefits, setBenefits] = useState<Benefit[]>([]);
+    const { user, setUser } = useContext(UserContext);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedBenefit, setSelectedBenefit] = useState<Benefit | null>(null);
+
+    function getSaldoMoedas(userData: any): number {
+        return userData.saldoMoedas;
+    }
+
+    function hasSaldoMoedas(userData: any): userData is { saldoMoedas: number } {
+        return 'saldoMoedas' in userData;
+    }
 
     useEffect(() => {
         const fetchBenefits = async () => {
@@ -25,21 +37,28 @@ const BenefitsPage = () => {
         fetchBenefits();
     }, []);
 
-    const handleBuyBenefit = async (benefitId: number, benefitCost: number) => {
+    const handleBuyBenefit = (benefit: Benefit) => {
         setError('');
         setSuccess('');
 
-        if (user && user.data.saldoMoedas < benefitCost) {
+        if (getSaldoMoedas(user?.data) < benefit.custoEmMoedas) {
             setError('Saldo insuficiente para comprar este benefício.');
             return;
         }
 
+        setSelectedBenefit(benefit);
+        setIsModalOpen(true);
+    };
+
+    const handleConfirmBuy = async () => {
+        if (!selectedBenefit) return;
+
         try {
-            const response = await Api.buyBenefit(user.data.email, benefitId);
+            const response = await Api.buyBenefit(user.data.email, selectedBenefit.id);
 
             if (response.ok) {
-                const newSaldo = user.data.saldoMoedas - benefitCost;
-                setUser({ ...user, data: { ...user.data, saldoMoedas: newSaldo } });
+                const newSaldo = getSaldoMoedas(user?.data) - selectedBenefit.custoEmMoedas;
+                setUser({ ...user, data: { ...user?.data, saldoMoedas: newSaldo } });
                 setSuccess('Benefício comprado com sucesso!');
             } else {
                 const errorMessage = await response.text();
@@ -48,14 +67,29 @@ const BenefitsPage = () => {
         } catch (error) {
             console.error('Erro ao comprar o benefício:', error);
             setError('Erro ao comprar o benefício. Tente novamente.');
+        } finally {
+            setIsModalOpen(false);
+            setSelectedBenefit(null);
         }
+    };
+
+    const handleCancelBuy = () => {
+        setIsModalOpen(false);
+        setSelectedBenefit(null);
     };
 
     return (
         <div className="main-content">
             <NavBar />
-            <div className="head-title">
-                <h1>Benefícios disponíveis</h1>
+            <div className='head-container'>
+                <div className="head-title">
+                    <h1>Benefícios disponíveis</h1>
+                </div>
+                {hasSaldoMoedas(user.data) && (
+                    <div className='ballance-text'>
+                        <TbCoin size={30} /> {user.data.saldoMoedas}
+                    </div>
+                )}
             </div>
             <div className="result-messages">
                 {error && <p className="error">{error}</p>}
@@ -69,10 +103,20 @@ const BenefitsPage = () => {
                         descricao={benefit.descricao}
                         custoEmMoedas={benefit.custoEmMoedas}
                         imagem={benefit.imagem}
-                        onBuy={() => handleBuyBenefit(benefit.id, benefit.custoEmMoedas)}
+                        onBuy={() => handleBuyBenefit(benefit)}
                     />
                 ))}
             </div>
+            {isModalOpen && selectedBenefit && (
+                <ModalOverlay
+                    title="Confirmar Compra"
+                    description={`Deseja comprar o benefício "${selectedBenefit.nome}" por ${selectedBenefit.custoEmMoedas} moedas?`}
+                    onConfirm={handleConfirmBuy}
+                    onCancel={handleCancelBuy}
+                    confirmText="Confirmar"
+                    cancelText="Cancelar"
+                />
+            )}
         </div>
     );
 };

@@ -4,28 +4,27 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 16px;
     margin: 16px;
-    width: 280px; /* Largura fixa */
-    min-height: 380px; /* Altura mínima para alinhar todos os cards */
+    width: 280px;
+    min-height: 380px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Distribui espaço uniformemente */
+    justify-content: space-between;
     align-items: center;
-    overflow: hidden; /* Impede que o conteúdo ultrapasse os limites */
+    overflow: hidden;
 }
 
 .benefits-card:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Configuração para alinhar os textos dentro do card */
 .benefits-card-info {
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Ajusta os elementos internamente */
+    justify-content: space-between;
     align-items: center;
     text-align: center;
-    flex-grow: 1; /* Permite que o texto e o botão ocupem o mesmo espaço */
+    flex-grow: 1;
     width: 100%;
 }
 
@@ -47,38 +46,57 @@
     color: #333;
 }
 
-/* Ajuste específico para o botão */
 .benefits-actions {
     display: flex;
     justify-content: center;
     margin-top: 16px;
-    width: 100%; /* Garante que o botão ocupe 100% da largura do card */
+    width: 100%;
 }
 
 .benefits-actions button {
-    width: 90%; /* Botão ocupa quase toda a largura, mas com margem interna */
-    max-width: 250px; /* Define um tamanho máximo para o botão */
+    width: 90%;
+    max-width: 250px;
     padding: 8px 16px;
     font-size: 1em;
     border-radius: 4px;
     cursor: pointer;
-    box-sizing: border-box; /* Garante que padding e border sejam incluídos no tamanho */
-    min-height: 40px; /* Altura mínima uniforme para todos os botões */
+    box-sizing: border-box;
+    min-height: 40px;
 
 }
 
 .benefits-content {
-    display: grid; /* Usa grid para organizar os cards */
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Garante cards do mesmo tamanho */
-    gap: 16px; /* Espaçamento entre os cards */
-    justify-content: center; /* Centraliza o conteúdo */
-    align-items: start; /* Garante que os elementos fiquem alinhados ao topo */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    justify-content: center;
+    align-items: start;
     padding: 16px;
+}
+
+.ballance-text {
+    display: flex;
+    align-items: center;
+    background-color: rgba(11, 11, 255, 0.445);
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+}
+
+.ballance-text:hover {
+    background-color: rgba(11, 11, 255, 0.7);
+}
+
+.head-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 @media (max-width: 768px) {
     .benefits-content {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Ajusta para telas menores */
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 }
 
@@ -96,9 +114,17 @@
 }
 
 .result-messages .error {
-    color: red;
+    background-color: #f0010188;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 1rem;
 }
 
 .result-messages .success {
-    color: green;
+    background-color: #00c20088;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 1rem;
 }

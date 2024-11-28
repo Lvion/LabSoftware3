@@ -1,5 +1,4 @@
-// NavBar.jsx
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaHome, FaGift } from 'react-icons/fa';
 import { FaGear } from "react-icons/fa6";

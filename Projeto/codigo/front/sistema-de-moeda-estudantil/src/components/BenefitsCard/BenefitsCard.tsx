@@ -1,15 +1,7 @@
 import React from 'react';
 import CustomButton from '../CustomButton/CustomButton';
 import './BenefitsCard.css';
-
-interface BenefitsCardProps {
-    nome: string;
-    descricao: string;
-    custoEmMoedas: number;
-    imagem?: string;
-    onBuy?: () => void;
-    adquirido?: boolean;
-}
+import { BenefitsCardProps } from '../../types/BenefitsCard';
 
 const BenefitsCard: React.FC<BenefitsCardProps> = ({ nome, descricao, custoEmMoedas, imagem, onBuy, adquirido }) => {
     return (
