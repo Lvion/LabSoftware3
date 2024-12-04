@@ -1,0 +1,33 @@
+@startuml
+actor "Professor" as Professor
+participant "TransacaoController" as Controller
+participant "TransacaoService" as Service
+participant "Relógio" as Relogio
+participant "Aluno" as Aluno
+
+activate Professor
+Professor -> Controller : transferirMoedas(professorEmail, alunoId, quantidadeMoedas, descricao, tipoTransacao)
+activate Controller
+Controller -> Relogio : verificarHorario()
+activate Relogio
+Relogio --> Controller : respostaHorario(booleano)
+deactivate Relogio
+
+alt Solicitação válida
+    Controller -> Service : transferirMoedas(professorEmail, alunoId, quantidadeMoedas, descricao, tipoTransacao)
+    activate Service
+    Service --> Controller : "Transferência realizada com sucesso."
+    deactivate Service
+    Controller -> Aluno : notificar(email, "Você recebeu moedas")
+    activate Aluno
+    Aluno -> Controller : receberNotificacao(mensagem)
+    Aluno --> Controller : confirmarRecebimento()
+    deactivate Aluno
+else Solicitação inválida
+    Controller --> Professor : "Erro nos parâmetros ou solicitação inválida."
+end
+
+Controller --> Professor : "Confirmação da operação (sucesso ou falha)."
+deactivate Controller
+deactivate Professor
+@enduml
